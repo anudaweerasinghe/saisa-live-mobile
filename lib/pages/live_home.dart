@@ -8,6 +8,8 @@ import 'package:saisa_live_app/models/livestream_model.dart';
 import 'package:saisa_live_app/models/tournament_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:saisa_live_app/pages/scores_home.dart';
+
 class LiveHomeScreen extends StatefulWidget {
   @override
   _LiveHomeScreenState createState() => new _LiveHomeScreenState();
@@ -35,13 +37,6 @@ class _LiveHomeScreenState extends State<LiveHomeScreen> {
   Color eventsBg = Colors.black54;
   Color scoresBg = Colors.black54;
 
-  final widgetOptions = [
-    Text('Scores'),
-    Text('Live'),
-    Text('Home'),
-    Text('Media'),
-    Text('Events'),
-  ];
 
   void onNavigationItemTapped(int index) {
     setState(() {
@@ -51,6 +46,11 @@ class _LiveHomeScreenState extends State<LiveHomeScreen> {
         Navigator.pushReplacement(
           context,
           new MaterialPageRoute(builder: (ctxt) => new HomeScreen()),
+        );
+      }else if(selectedIndex == 0){
+        Navigator.pushReplacement(
+          context,
+          new MaterialPageRoute(builder: (ctxt) => new ScoresHomeScreen()),
         );
       }
     });
@@ -142,13 +142,13 @@ class _LiveHomeScreenState extends State<LiveHomeScreen> {
                     flex: 1,
                     child: RaisedButton(
                       textColor: Colors.white,
-                      child: Text("Livestreams",
+                      child: Text("LIVESTREAMS",
                           textAlign: TextAlign.center,
                           style: live?TextStyle(
-                              fontSize: 16,
+                              fontSize: 14,
                               fontWeight: FontWeight.w600,
                               decoration: TextDecoration.underline):TextStyle(
-                            fontSize: 16,
+                            fontSize: 14,
                             fontWeight: FontWeight.w600,)),
                       color: Colors.transparent,
                       elevation: 0,
@@ -160,13 +160,13 @@ class _LiveHomeScreenState extends State<LiveHomeScreen> {
                     flex: 1,
                     child: RaisedButton(
                       textColor: Colors.white,
-                      child: Text("Past Footage",
+                      child: Text("PAST FOOTAGE",
                           textAlign: TextAlign.center,
                           style: !live?TextStyle(
-                              fontSize: 16,
+                              fontSize: 14,
                               fontWeight: FontWeight.w600,
                               decoration: TextDecoration.underline):TextStyle(
-                            fontSize: 16,
+                            fontSize: 14,
                             fontWeight: FontWeight.w600,)),
                       color: Colors.transparent,
                       elevation: 0,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:saisa_live_app/pages/live_home.dart';
+import 'package:saisa_live_app/pages/scores_home.dart';
+
 
 
 class HomeScreen extends StatefulWidget{
@@ -41,9 +43,16 @@ class _HomeScreenState extends State<HomeScreen>{
           context,
           new MaterialPageRoute(builder: (ctxt) => new LiveHomeScreen()),
         );
+      }else if(selectedIndex == 0){
+        Navigator.pushReplacement(
+          context,
+          new MaterialPageRoute(builder: (ctxt) => new ScoresHomeScreen()),
+        );
       }
     });
   }
+
+
 
 
   @override
