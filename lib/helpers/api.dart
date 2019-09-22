@@ -4,6 +4,8 @@ import 'dart:convert';
 
 import 'package:saisa_live_app/models/tournament_model.dart';
 import 'package:saisa_live_app/models/livestream_model.dart';
+import 'package:saisa_live_app/models/games_model.dart';
+
 
 const baseUrl = "http://localhost:8080";
 
@@ -25,6 +27,26 @@ Future<List<Livestream>> getAllLivestreams(bool liveStatus) async{
 
     return liveStreamsList;
 
+  }else{
+    return null;
+  }
+
+}
+
+
+Future<List<Game>> getGames(int activeStatus) async{
+
+  String url = baseUrl+'/games?activeStatus='+activeStatus.toString();
+
+  final response = await http.get(url);
+
+  if(response.statusCode == 200){
+    List<Game> gamesList;
+
+    var data = json.decode(response.body) as List;
+    gamesList = data.map<Game>((json)=>Game.fromJson(json)).toList();
+
+    return gamesList;
   }else{
     return null;
   }

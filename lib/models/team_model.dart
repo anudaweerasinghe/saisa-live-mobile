@@ -16,6 +16,7 @@ class Team {
       id: json['id'],
       name: json['name'],
       logo: json['logo'],
+      fullName: json['fullName'],
       mascot: json['mascot'],
       webUrl: json['webUrl'],
       active: json['active'],
