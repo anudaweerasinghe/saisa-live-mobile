@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:saisa_live_app/pages/home.dart';
 import 'dart:async';
 import 'package:saisa_live_app/helpers/api.dart';
 import 'package:saisa_live_app/pages/events_home.dart';
@@ -66,22 +65,17 @@ class _LiveHomeScreenState extends State<LiveHomeScreen> {
     setState(() {
       selectedIndex = index;
 
-      if (selectedIndex == 2) {
-        Navigator.pushReplacement(
-          context,
-          new MaterialPageRoute(builder: (ctxt) => new HomeScreen()),
-        );
-      }else if(selectedIndex == 0){
+      if(selectedIndex == 0){
         Navigator.pushReplacement(
           context,
           new MaterialPageRoute(builder: (ctxt) => new ScoresHomeScreen()),
         );
-      }else if(selectedIndex == 3){
+      }else if(selectedIndex == 2){
         Navigator.pushReplacement(
           context,
           new MaterialPageRoute(builder: (ctxt) => new MediaHomeScreen()),
         );
-      }else if (selectedIndex == 4) {
+      }else if (selectedIndex == 3) {
         Navigator.pushReplacement(
           context,
           new MaterialPageRoute(builder: (ctxt) => new EventsHomeScreen()),
@@ -406,7 +400,6 @@ class _LiveHomeScreenState extends State<LiveHomeScreen> {
               title: Text('SCORES')),
           BottomNavigationBarItem(
               icon: Icon(Icons.live_tv), title: Text('LIVE')),
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('HOME')),
           BottomNavigationBarItem(
               icon: Icon(Icons.photo_library), title: Text('MEDIA')),
           BottomNavigationBarItem(

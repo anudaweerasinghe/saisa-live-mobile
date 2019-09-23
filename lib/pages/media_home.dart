@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:saisa_live_app/pages/live_home.dart';
 import 'package:saisa_live_app/pages/scores_home.dart';
-import 'package:saisa_live_app/pages/home.dart';
 import 'package:saisa_live_app/pages/events_home.dart';
 
 
@@ -65,7 +64,7 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
     getData();
   }
 
-  int selectedIndex = 3;
+  int selectedIndex = 2;
   Color eventsBg = Colors.black54;
   Color scoresBg = Colors.black54;
 
@@ -119,12 +118,7 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
           context,
           new MaterialPageRoute(builder: (ctxt) => new ScoresHomeScreen()),
         );
-      } else if (selectedIndex == 2) {
-        Navigator.pushReplacement(
-          context,
-          new MaterialPageRoute(builder: (ctxt) => new HomeScreen()),
-        );
-      }else if (selectedIndex == 4) {
+      } else if (selectedIndex == 3) {
         Navigator.pushReplacement(
           context,
           new MaterialPageRoute(builder: (ctxt) => new EventsHomeScreen()),
@@ -359,8 +353,6 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.live_tv), title: Text('LIVE')),
             BottomNavigationBarItem(
-                icon: Icon(Icons.home), title: Text('HOME')),
-            BottomNavigationBarItem(
                 icon: Icon(Icons.photo_library), title: Text('MEDIA')),
             BottomNavigationBarItem(
                 icon: new Image.asset(
@@ -581,8 +573,6 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
                 title: Text('SCORES')),
             BottomNavigationBarItem(
                 icon: Icon(Icons.live_tv), title: Text('LIVE')),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home), title: Text('HOME')),
             BottomNavigationBarItem(
                 icon: Icon(Icons.photo_library), title: Text('MEDIA')),
             BottomNavigationBarItem(
@@ -809,8 +799,6 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
                 title: Text('SCORES')),
             BottomNavigationBarItem(
                 icon: Icon(Icons.live_tv), title: Text('LIVE')),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home), title: Text('HOME')),
             BottomNavigationBarItem(
                 icon: Icon(Icons.photo_library), title: Text('MEDIA')),
             BottomNavigationBarItem(

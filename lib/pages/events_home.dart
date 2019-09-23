@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:saisa_live_app/pages/live_home.dart';
 import 'package:saisa_live_app/pages/scores_home.dart';
 import 'package:saisa_live_app/pages/media_home.dart';
-import 'package:saisa_live_app/pages/home.dart';
 import 'package:saisa_live_app/helpers/api.dart';
 import 'package:saisa_live_app/models/tournament_model.dart';
 import 'package:saisa_live_app/pages/standings.dart';
@@ -57,7 +56,7 @@ class _EventsHomeScreenState extends State<EventsHomeScreen> {
   }
 
 
-  int selectedIndex = 4;
+  int selectedIndex = 3;
   Color eventsBg = Color.fromARGB(255, 20, 136, 204);
   Color scoresBg = Colors.black54;
 
@@ -76,15 +75,10 @@ class _EventsHomeScreenState extends State<EventsHomeScreen> {
           context,
           new MaterialPageRoute(builder: (ctxt) => new ScoresHomeScreen()),
         );
-      } else if (selectedIndex == 3) {
-        Navigator.pushReplacement(
-          context,
-          new MaterialPageRoute(builder: (ctxt) => new MediaHomeScreen()),
-        );
       } else if (selectedIndex == 2) {
         Navigator.pushReplacement(
           context,
-          new MaterialPageRoute(builder: (ctxt) => new HomeScreen()),
+          new MaterialPageRoute(builder: (ctxt) => new MediaHomeScreen()),
         );
       }
     });
@@ -403,8 +397,7 @@ class _EventsHomeScreenState extends State<EventsHomeScreen> {
               title: Text('SCORES')),
           BottomNavigationBarItem(
               icon: Icon(Icons.live_tv), title: Text('LIVE')),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home), title: Text('HOME')),
+
           BottomNavigationBarItem(
               icon: Icon(Icons.photo_library), title: Text('MEDIA')),
           BottomNavigationBarItem(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:saisa_live_app/pages/home.dart';
 import 'package:saisa_live_app/pages/live_home.dart';
 import 'package:saisa_live_app/models/games_model.dart';
 import 'package:saisa_live_app/helpers/api.dart';
@@ -125,22 +124,17 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
     setState(() {
       selectedIndex = index;
 
-      if (selectedIndex == 2) {
-        Navigator.pushReplacement(
-          context,
-          new MaterialPageRoute(builder: (ctxt) => new HomeScreen()),
-        );
-      } else if (selectedIndex == 1) {
+      if (selectedIndex == 1) {
         Navigator.pushReplacement(
           context,
           new MaterialPageRoute(builder: (ctxt) => new LiveHomeScreen()),
         );
-      } else if (selectedIndex == 3) {
+      } else if (selectedIndex == 2) {
         Navigator.pushReplacement(
           context,
           new MaterialPageRoute(builder: (ctxt) => new MediaHomeScreen()),
         );
-      }else if (selectedIndex == 4) {
+      }else if (selectedIndex == 3) {
         Navigator.pushReplacement(
           context,
           new MaterialPageRoute(builder: (ctxt) => new EventsHomeScreen()),
@@ -487,8 +481,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                 title: Text('SCORES')),
             BottomNavigationBarItem(
                 icon: Icon(Icons.live_tv), title: Text('LIVE')),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home), title: Text('HOME')),
+
             BottomNavigationBarItem(
                 icon: Icon(Icons.photo_library), title: Text('MEDIA')),
             BottomNavigationBarItem(
@@ -790,8 +783,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                 title: Text('SCORES')),
             BottomNavigationBarItem(
                 icon: Icon(Icons.live_tv), title: Text('LIVE')),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home), title: Text('HOME')),
+
             BottomNavigationBarItem(
                 icon: Icon(Icons.photo_library), title: Text('MEDIA')),
             BottomNavigationBarItem(
@@ -1133,8 +1125,6 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                 title: Text('SCORES')),
             BottomNavigationBarItem(
                 icon: Icon(Icons.live_tv), title: Text('LIVE')),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home), title: Text('HOME')),
             BottomNavigationBarItem(
                 icon: Icon(Icons.photo_library), title: Text('MEDIA')),
             BottomNavigationBarItem(
