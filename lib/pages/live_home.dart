@@ -92,6 +92,9 @@ class _LiveHomeScreenState extends State<LiveHomeScreen> {
 
   getData() async {
 
+//    TournamentParticipants tournamentParticipants = await getParticipantsByTournament(1);
+
+
     if(tournamentSelected==false) {
       List<Livestream> liveL = await getAllLivestreams(true,0);
       List<Livestream> pastL = await getAllLivestreams(false, 0);

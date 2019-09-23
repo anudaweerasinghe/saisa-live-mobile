@@ -6,6 +6,7 @@ import 'package:saisa_live_app/pages/media_home.dart';
 import 'package:saisa_live_app/pages/home.dart';
 import 'package:saisa_live_app/helpers/api.dart';
 import 'package:saisa_live_app/models/tournament_model.dart';
+import 'package:saisa_live_app/pages/standings.dart';
 
 
 class EventsHomeScreen extends StatefulWidget {
@@ -267,6 +268,13 @@ class _EventsHomeScreenState extends State<EventsHomeScreen> {
                                             minWidth: double.infinity,
                                             child: RaisedButton(
                                               onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  new MaterialPageRoute(
+                                                      builder: (ctxt) =>
+                                                      new StandingsScreen(
+                                                        tournamentId: live?liveTournaments[index].id:archivedTournaments[index].id,)),
+                                                );
                                               },
                                               textColor: Colors.white,
                                               color: Color.fromARGB(

@@ -7,6 +7,7 @@ import 'package:saisa_live_app/models/livestream_model.dart';
 import 'package:saisa_live_app/models/games_model.dart';
 import 'package:saisa_live_app/models/media_model.dart';
 import 'package:saisa_live_app/models/tournament_model.dart';
+import 'package:saisa_live_app/models/tournament_participant_model.dart';
 
 
 const baseUrl = "http://localhost:8080";
@@ -136,5 +137,26 @@ Future<List<Game>> getGamesByTorunamentId(int activeStatus, int tournamentId) as
   }else{
     return null;
   }
+
+}
+
+Future<TournamentParticipants> getParticipantsByTournament(int tournamentId) async{
+
+  String url = baseUrl+'/tournaments/participants/?tournamentId='+tournamentId.toString();
+
+  final response = await http.get(url);
+
+  if(response.statusCode == 200){
+    TournamentParticipants tournamentParticipants;
+
+    var data = json.decode(response.body);
+    tournamentParticipants = new TournamentParticipants.fromJson(data);
+    return tournamentParticipants;
+  }else{
+    return null;
+  }
+
+
+
 
 }
