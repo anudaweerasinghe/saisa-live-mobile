@@ -4,6 +4,7 @@ import 'package:saisa_live_app/pages/home.dart';
 import 'package:saisa_live_app/pages/live_home.dart';
 import 'package:saisa_live_app/models/games_model.dart';
 import 'package:saisa_live_app/helpers/api.dart';
+import 'package:saisa_live_app/pages/media_home.dart';
 
 import 'package:async/async.dart';
 
@@ -88,6 +89,11 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
         Navigator.pushReplacement(
           context,
           new MaterialPageRoute(builder: (ctxt) => new LiveHomeScreen()),
+        );
+      } else if (selectedIndex == 3) {
+        Navigator.pushReplacement(
+          context,
+          new MaterialPageRoute(builder: (ctxt) => new MediaHomeScreen()),
         );
       }
     });

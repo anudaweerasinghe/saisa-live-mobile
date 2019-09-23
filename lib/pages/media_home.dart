@@ -4,12 +4,19 @@ import 'package:saisa_live_app/pages/live_home.dart';
 import 'package:saisa_live_app/pages/scores_home.dart';
 import 'package:saisa_live_app/pages/home.dart';
 
+import 'package:saisa_live_app/helpers/api.dart';
+import 'package:async/async.dart';
+import 'package:saisa_live_app/models/media_model.dart';
+
 class MediaHomeScreen extends StatefulWidget {
   @override
   _MediaHomeScreenState createState() => new _MediaHomeScreenState();
 }
 
 class _MediaHomeScreenState extends State<MediaHomeScreen> {
+  List<Media> photosList;
+  List<Media> videosList;
+  List<Media> newsList;
 
   bool photos;
   bool videos;
@@ -22,13 +29,31 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
     photos = true;
     videos = false;
     news = false;
+
+    photosList = new List();
+    videosList = new List();
+    newsList = new List();
+
+    getData();
   }
 
   int selectedIndex = 3;
   Color eventsBg = Colors.black54;
   Color scoresBg = Colors.black54;
 
+  getData() async {
+    List<Media> photosL = await getMedia(1);
+    List<Media> videosL = await getMedia(2);
+    List<Media> newsL = await getMedia(3);
 
+    photosList = photosL.reversed.toList();
+    videosList = videosL.reversed.toList();
+    newsList = newsL.reversed.toList();
+
+    print("Hello");
+
+    setState(() {});
+  }
 
   void onNavigationItemTapped(int index) {
     setState(() {
@@ -134,7 +159,7 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
                               decoration:
-                              photos ? TextDecoration.underline : null)),
+                                  photos ? TextDecoration.underline : null)),
                       color: Colors.transparent,
                       elevation: 0,
                       onPressed: () {
@@ -152,9 +177,8 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
-                              decoration: videos
-                                  ? TextDecoration.underline
-                                  : null)),
+                              decoration:
+                                  videos ? TextDecoration.underline : null)),
                       color: Colors.transparent,
                       elevation: 0,
                       onPressed: () {
@@ -173,7 +197,7 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
                               decoration:
-                              news ? TextDecoration.underline : null)),
+                                  news ? TextDecoration.underline : null)),
                       color: Colors.transparent,
                       elevation: 0,
                       onPressed: () {
@@ -188,7 +212,76 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
           ),
           Expanded(
             flex: 15,
-            child: Padding(padding: EdgeInsets.symmetric(vertical: 0, horizontal: 0)),
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+              child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: photosList.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: <Widget>[
+                        Padding(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 4, horizontal: 4),
+                        ),
+                        Card(
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0)),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 20, horizontal: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Text(photosList[index].title,
+                                    textAlign: TextAlign.left,
+                                    style: new TextStyle(
+                                        fontSize: 23.0,
+                                        fontWeight: FontWeight.w900,
+                                        fontFamily: 'Roboto')),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 3, horizontal: 8),
+                                ),
+                                new Image.network(
+                                  photosList[index].coverImg,
+                                  color: Color.fromRGBO(255, 255, 255, 0.85),
+                                  colorBlendMode: BlendMode.modulate,
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 3, horizontal: 8),
+                                ),
+                                Center(
+                                    child: ButtonTheme(
+                                      minWidth: double.infinity,
+                                      child: RaisedButton(
+                                        onPressed: () {
+
+                                        },
+                                        textColor: Colors.white,
+                                        color: Color.fromARGB(
+                                            255, 20, 136, 204),
+                                        elevation: 0,
+                                        child: Text("View Now"),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius
+                                                .circular(10)
+                                        ),
+                                      ),
+                                    )
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  }),
+            ),
           )
         ],
       )),
