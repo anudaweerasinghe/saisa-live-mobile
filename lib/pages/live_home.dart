@@ -9,6 +9,7 @@ import 'package:saisa_live_app/models/tournament_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:saisa_live_app/pages/scores_home.dart';
+import 'package:saisa_live_app/pages/media_home.dart';
 
 class LiveHomeScreen extends StatefulWidget {
   @override
@@ -51,6 +52,11 @@ class _LiveHomeScreenState extends State<LiveHomeScreen> {
         Navigator.pushReplacement(
           context,
           new MaterialPageRoute(builder: (ctxt) => new ScoresHomeScreen()),
+        );
+      }else if(selectedIndex == 3){
+        Navigator.pushReplacement(
+          context,
+          new MaterialPageRoute(builder: (ctxt) => new MediaHomeScreen()),
         );
       }
     });
