@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:saisa_live_app/pages/home.dart';
 import 'dart:async';
 import 'package:saisa_live_app/helpers/api.dart';
+import 'package:saisa_live_app/pages/events_home.dart';
+
 
 import 'package:saisa_live_app/models/livestream_model.dart';
 import 'package:saisa_live_app/models/tournament_model.dart';
@@ -57,6 +59,11 @@ class _LiveHomeScreenState extends State<LiveHomeScreen> {
         Navigator.pushReplacement(
           context,
           new MaterialPageRoute(builder: (ctxt) => new MediaHomeScreen()),
+        );
+      }else if (selectedIndex == 4) {
+        Navigator.pushReplacement(
+          context,
+          new MaterialPageRoute(builder: (ctxt) => new EventsHomeScreen()),
         );
       }
     });

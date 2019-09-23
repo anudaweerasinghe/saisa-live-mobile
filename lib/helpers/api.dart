@@ -6,6 +6,7 @@ import 'package:saisa_live_app/models/tournament_model.dart';
 import 'package:saisa_live_app/models/livestream_model.dart';
 import 'package:saisa_live_app/models/games_model.dart';
 import 'package:saisa_live_app/models/media_model.dart';
+import 'package:saisa_live_app/models/tournament_model.dart';
 
 
 const baseUrl = "http://localhost:8080";
@@ -67,6 +68,31 @@ Future<List<Media>> getMedia(int type) async{
     mediaList = data.map<Media>((json)=>Media.fromJson(json)).toList();
 
     return mediaList;
+  }else{
+    return null;
+  }
+
+}
+
+Future<List<Tournament>> getTournaments(bool active) async{
+
+  String url;
+
+  if(active){
+    url = baseUrl+'/tournaments?tournamentId=0';
+  }else{
+    url = baseUrl+'/tournaments/inactive';
+  }
+
+  final response = await http.get(url);
+
+  if(response.statusCode == 200){
+    List<Tournament> tournamentList;
+
+    var data = json.decode(response.body) as List;
+    tournamentList = data.map<Tournament>((json)=>Tournament.fromJson(json)).toList();
+
+    return tournamentList;
   }else{
     return null;
   }
