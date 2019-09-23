@@ -23,6 +23,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
   List<Game> liveList;
   List<Game> resultsList;
   List<Game> fixturesList;
+  List<String> resultDescriptions;
 
   @override
   initState() {
@@ -35,6 +36,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
     liveList = new List();
     resultsList = new List();
     fixturesList = new List();
+    resultDescriptions = new List();
 
     getData();
   }
@@ -47,6 +49,16 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
     liveList = liveG.reversed.toList();
     resultsList = resultG.reversed.toList();
     fixturesList = fixtureG.reversed.toList();
+
+    for(int i=0;i<resultsList.length; i++){
+      if(resultsList[i].result==1){
+        resultDescriptions.add(resultsList[i].team1.team.name+" Won");
+      }else if(resultsList[i].result==2){
+        resultDescriptions.add(resultsList[i].team2.team.name+" Won");
+      }else{
+        resultDescriptions.add("No Result");
+      }
+    }
 
     setState(() {});
   }
@@ -1001,6 +1013,22 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                       )
                                     ],
                                   ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 6, horizontal: 6),
+                                  ),
+                                  Center(
+                                    child:Text(
+                                      resultDescriptions[index],
+                                      textAlign: TextAlign.right,
+                                      style: new TextStyle(
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: 'Roboto',
+                                      ),
+                                    ) ,
+                                  ),
+
                                   Padding(
                                     padding: EdgeInsets.symmetric(
                                         vertical: 6, horizontal: 6),
