@@ -6,6 +6,7 @@ import 'package:saisa_live_app/models/games_model.dart';
 import 'package:saisa_live_app/helpers/api.dart';
 import 'package:saisa_live_app/pages/media_home.dart';
 import 'package:saisa_live_app/pages/events_home.dart';
+import 'package:saisa_live_app/models/tournament_model.dart';
 
 import 'package:async/async.dart';
 
@@ -13,19 +14,32 @@ import 'package:url_launcher/url_launcher.dart';
 
 
 class ScoresHomeScreen extends StatefulWidget {
+
+  final int tournamentId;
+
+  ScoresHomeScreen(
+      {Key key, this.tournamentId})
+      : super(key: key);
+
   @override
-  _ScoresHomeScreenState createState() => new _ScoresHomeScreenState();
+  _ScoresHomeScreenState createState() => new _ScoresHomeScreenState(tournamentId: tournamentId);
 }
 
 class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
+  int tournamentId;
+  bool tournamentSelected;
   bool live;
   bool fixtures;
   bool results;
+  Tournament tournamentDetails;
 
   List<Game> liveList;
   List<Game> resultsList;
   List<Game> fixturesList;
   List<String> resultDescriptions;
+
+  _ScoresHomeScreenState({Key key, this.tournamentId});
+
 
   @override
   initState() {
@@ -40,17 +54,44 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
     fixturesList = new List();
     resultDescriptions = new List();
 
+    tournamentDetails = new Tournament();
+    tournamentDetails.name = "";
+
+    if(tournamentId==null){
+      tournamentSelected = false;
+    }else{
+      tournamentSelected = true;
+    }
+
+
     getData();
   }
 
   getData() async {
-    List<Game> liveG = await getGames(1);
-    List<Game> resultG = await getGames(2);
-    List<Game> fixtureG = await getGames(0);
 
-    liveList = liveG.reversed.toList();
-    resultsList = resultG.reversed.toList();
-    fixturesList = fixtureG.reversed.toList();
+    if(tournamentSelected==false) {
+      List<Game> liveG = await getGames(1);
+      List<Game> resultG = await getGames(2);
+      List<Game> fixtureG = await getGames(0);
+
+      liveList = liveG.reversed.toList();
+      resultsList = resultG.reversed.toList();
+      fixturesList = fixtureG.reversed.toList();
+
+    }else{
+
+      tournamentDetails = await getTournamentById(1);
+
+      List<Game> liveG = await getGamesByTorunamentId(1, tournamentId);
+      List<Game> resultG = await getGamesByTorunamentId(2, tournamentId);
+      List<Game> fixtureG = await getGamesByTorunamentId(0, tournamentId);
+
+      liveList = liveG.reversed.toList();
+      resultsList = resultG.reversed.toList();
+      fixturesList = fixtureG.reversed.toList();
+
+
+    }
 
     for(int i=0;i<resultsList.length; i++){
       if(resultsList[i].result==1){
@@ -132,7 +173,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
             child: new AppBar(
               elevation: 0,
               title: new Text(
-                'SAISA Live',
+                tournamentSelected?tournamentDetails.name:'SAISA Live',
                 textAlign: TextAlign.center,
                 style: new TextStyle(
                   fontWeight: FontWeight.bold,
@@ -430,7 +471,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                 ),
               )
             ]),
-        bottomNavigationBar: BottomNavigationBar(
+        bottomNavigationBar: !tournamentSelected?BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -459,7 +500,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
           currentIndex: selectedIndex,
           fixedColor: Color.fromARGB(255, 20, 136, 204),
           onTap: onNavigationItemTapped,
-        ),
+        ):null,
       );
     }else if(fixtures){
       return new Scaffold(
@@ -467,7 +508,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
             child: new AppBar(
               elevation: 0,
               title: new Text(
-                'SAISA Live',
+                tournamentSelected?tournamentDetails.name:'SAISA Live',
                 textAlign: TextAlign.center,
                 style: new TextStyle(
                   fontWeight: FontWeight.bold,
@@ -733,7 +774,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                 ),
               )
             ]),
-        bottomNavigationBar: BottomNavigationBar(
+        bottomNavigationBar: !tournamentSelected?BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -762,7 +803,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
           currentIndex: selectedIndex,
           fixedColor: Color.fromARGB(255, 20, 136, 204),
           onTap: onNavigationItemTapped,
-        ),
+        ):null,
       );
     }else{
       return new Scaffold(
@@ -770,7 +811,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
             child: new AppBar(
               elevation: 0,
               title: new Text(
-                'SAISA Live',
+                tournamentSelected?tournamentDetails.name:'SAISA Live',
                 textAlign: TextAlign.center,
                 style: new TextStyle(
                   fontWeight: FontWeight.bold,
@@ -1076,7 +1117,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                 ),
               )
             ]),
-        bottomNavigationBar: BottomNavigationBar(
+        bottomNavigationBar: !tournamentSelected?BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -1105,7 +1146,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
           currentIndex: selectedIndex,
           fixedColor: Color.fromARGB(255, 20, 136, 204),
           onTap: onNavigationItemTapped,
-        ),
+        ):null,
       );
 
     }

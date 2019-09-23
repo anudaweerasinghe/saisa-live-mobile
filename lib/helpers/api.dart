@@ -98,3 +98,43 @@ Future<List<Tournament>> getTournaments(bool active) async{
   }
 
 }
+
+Future<Tournament> getTournamentById(int tournamentId) async{
+
+  String url = baseUrl+'/tournaments?tournamentId='+tournamentId.toString();
+
+  final response = await http.get(url);
+
+  if(response.statusCode == 200){
+    Tournament tournament;
+
+    var data = json.decode(response.body);
+    tournament = new Tournament.fromJson(data);
+    return tournament;
+  }else{
+    return null;
+  }
+
+
+
+
+}
+
+Future<List<Game>> getGamesByTorunamentId(int activeStatus, int tournamentId) async{
+
+  String url = baseUrl+'/games?activeStatus='+activeStatus.toString()+'&tournamentId='+tournamentId.toString();
+
+  final response = await http.get(url);
+
+  if(response.statusCode == 200){
+    List<Game> gamesList;
+
+    var data = json.decode(response.body) as List;
+    gamesList = data.map<Game>((json)=>Game.fromJson(json)).toList();
+
+    return gamesList;
+  }else{
+    return null;
+  }
+
+}

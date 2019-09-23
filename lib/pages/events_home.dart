@@ -290,6 +290,13 @@ class _EventsHomeScreenState extends State<EventsHomeScreen> {
                                             minWidth: double.infinity,
                                             child: RaisedButton(
                                               onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  new MaterialPageRoute(
+                                                      builder: (ctxt) =>
+                                                      new ScoresHomeScreen(
+                                                        tournamentId: live?liveTournaments[index].id:archivedTournaments[index].id,)),
+                                                );
                                               },
                                               textColor: Colors.white,
                                               color: Color.fromARGB(
@@ -342,7 +349,7 @@ class _EventsHomeScreenState extends State<EventsHomeScreen> {
                                               color: Color.fromARGB(
                                                   255, 20, 136, 204),
                                               elevation: 0,
-                                              child: Text("MEDIAs"),
+                                              child: Text("MEDIA"),
                                               shape: RoundedRectangleBorder(
                                                   borderRadius: BorderRadius
                                                       .circular(10)
