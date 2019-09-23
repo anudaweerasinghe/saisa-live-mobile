@@ -12,11 +12,18 @@ import 'package:saisa_live_app/models/media_model.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 import 'package:saisa_live_app/pages/news_detail.dart';
+import 'package:saisa_live_app/models/tournament_model.dart';
 
 
 class MediaHomeScreen extends StatefulWidget {
+  final int tournamentId;
+
+  MediaHomeScreen(
+      {Key key, this.tournamentId})
+      : super(key: key);
+
   @override
-  _MediaHomeScreenState createState() => new _MediaHomeScreenState();
+  _MediaHomeScreenState createState() => new _MediaHomeScreenState(tournamentId: tournamentId);
 }
 
 class _MediaHomeScreenState extends State<MediaHomeScreen> {
@@ -27,6 +34,12 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
   bool photos;
   bool videos;
   bool news;
+
+  Tournament tournamentDetails;
+  int tournamentId;
+  bool tournamentSelected;
+
+  _MediaHomeScreenState({Key key, this.tournamentId});
 
   @override
   initState() {
@@ -40,6 +53,15 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
     videosList = new List();
     newsList = new List();
 
+    tournamentDetails = new Tournament();
+    tournamentDetails.name = "";
+
+    if(tournamentId==null){
+      tournamentSelected = false;
+    }else{
+      tournamentSelected = true;
+    }
+
     getData();
   }
 
@@ -48,15 +70,29 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
   Color scoresBg = Colors.black54;
 
   getData() async {
-    List<Media> photosL = await getMedia(1);
-    List<Media> videosL = await getMedia(2);
-    List<Media> newsL = await getMedia(3);
 
-    photosList = photosL.reversed.toList();
-    videosList = videosL.reversed.toList();
-    newsList = newsL.reversed.toList();
+    if(tournamentSelected==false) {
+      List<Media> photosL = await getMedia(1,0);
+      List<Media> videosL = await getMedia(2,0);
+      List<Media> newsL = await getMedia(3,0);
 
-    print("Hello");
+      photosList = photosL.reversed.toList();
+      videosList = videosL.reversed.toList();
+      newsList = newsL.reversed.toList();
+    }else{
+
+      tournamentDetails = await getTournamentById(tournamentId);
+
+      List<Media> photosL = await getMedia(1,tournamentId);
+      List<Media> videosL = await getMedia(2,tournamentId);
+      List<Media> newsL = await getMedia(3,tournamentId);
+
+      photosList = photosL.reversed.toList();
+      videosList = videosL.reversed.toList();
+      newsList = newsL.reversed.toList();
+
+    }
+
 
     setState(() {});
   }
@@ -123,7 +159,7 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
             child: new AppBar(
               elevation: 0,
               title: new Text(
-                'SAISA Live',
+                tournamentSelected?tournamentDetails.name:'SAISA Live',
                 textAlign: TextAlign.center,
                 style: new TextStyle(
                   fontWeight: FontWeight.bold,
@@ -309,7 +345,7 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
                 )
               ],
             )),
-        bottomNavigationBar: BottomNavigationBar(
+        bottomNavigationBar: tournamentSelected?null:BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -346,7 +382,7 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
             child: new AppBar(
               elevation: 0,
               title: new Text(
-                'SAISA Live',
+                tournamentSelected?tournamentDetails.name:'SAISA Live',
                 textAlign: TextAlign.center,
                 style: new TextStyle(
                   fontWeight: FontWeight.bold,
@@ -532,7 +568,7 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
                 )
               ],
             )),
-        bottomNavigationBar: BottomNavigationBar(
+        bottomNavigationBar: tournamentSelected?null:BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -569,7 +605,7 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
             child: new AppBar(
               elevation: 0,
               title: new Text(
-                'SAISA Live',
+                tournamentSelected?tournamentDetails.name:'SAISA Live',
                 textAlign: TextAlign.center,
                 style: new TextStyle(
                   fontWeight: FontWeight.bold,
@@ -760,7 +796,7 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
                 )
               ],
             )),
-        bottomNavigationBar: BottomNavigationBar(
+        bottomNavigationBar: tournamentSelected?null:BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(

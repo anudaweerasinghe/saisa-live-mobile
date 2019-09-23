@@ -56,8 +56,8 @@ Future<List<Game>> getGames(int activeStatus) async{
 }
 
 
-Future<List<Media>> getMedia(int type) async{
-  String url = baseUrl+'/media?tournamentId=0&type='+type.toString();
+Future<List<Media>> getMedia(int type, int tournamentId) async{
+  String url = baseUrl+'/media?tournamentId='+tournamentId.toString()+'&type='+type.toString();
 
   final response = await http.get(url);
 
