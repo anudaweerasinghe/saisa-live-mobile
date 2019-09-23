@@ -14,8 +14,14 @@ import 'package:saisa_live_app/pages/scores_home.dart';
 import 'package:saisa_live_app/pages/media_home.dart';
 
 class LiveHomeScreen extends StatefulWidget {
+  final int tournamentId;
+
+  LiveHomeScreen(
+      {Key key, this.tournamentId})
+      : super(key: key);
+
   @override
-  _LiveHomeScreenState createState() => new _LiveHomeScreenState();
+  _LiveHomeScreenState createState() => new _LiveHomeScreenState(tournamentId: tournamentId);
 }
 
 class _LiveHomeScreenState extends State<LiveHomeScreen> {
@@ -23,6 +29,12 @@ class _LiveHomeScreenState extends State<LiveHomeScreen> {
   List<Livestream> pastFootageList;
 
   bool live;
+
+  Tournament tournamentDetails;
+  int tournamentId;
+  bool tournamentSelected;
+
+  _LiveHomeScreenState({Key key, this.tournamentId});
 
   @override
   initState() {
@@ -32,6 +44,15 @@ class _LiveHomeScreenState extends State<LiveHomeScreen> {
     pastFootageList = new List();
 
     live=true;
+
+    tournamentDetails = new Tournament();
+    tournamentDetails.name = "";
+
+    if(tournamentId==null){
+      tournamentSelected = false;
+    }else{
+      tournamentSelected = true;
+    }
 
     getData();
   }
@@ -70,11 +91,25 @@ class _LiveHomeScreenState extends State<LiveHomeScreen> {
   }
 
   getData() async {
-    List<Livestream> liveL = await getAllLivestreams(true);
-    List<Livestream> pastL = await getAllLivestreams(false);
 
-    liveStreamList = liveL.reversed.toList();
-    pastFootageList = pastL.reversed.toList();
+    if(tournamentSelected==false) {
+      List<Livestream> liveL = await getAllLivestreams(true,0);
+      List<Livestream> pastL = await getAllLivestreams(false, 0);
+
+      liveStreamList = liveL.reversed.toList();
+      pastFootageList = pastL.reversed.toList();
+    }else{
+
+      tournamentDetails = await getTournamentById(tournamentId);
+
+      List<Livestream> liveL = await getAllLivestreams(true,tournamentId);
+      List<Livestream> pastL = await getAllLivestreams(false, tournamentId);
+
+      liveStreamList = liveL.reversed.toList();
+      pastFootageList = pastL.reversed.toList();
+
+    }
+
 
     setState(() {});
   }
@@ -106,7 +141,7 @@ class _LiveHomeScreenState extends State<LiveHomeScreen> {
           child: new AppBar(
             elevation: 0,
             title: new Text(
-              'SAISA Live',
+              tournamentSelected?tournamentDetails.name:'SAISA Live',
               textAlign: TextAlign.center,
               style: new TextStyle(
                 fontWeight: FontWeight.bold,
@@ -355,7 +390,7 @@ class _LiveHomeScreenState extends State<LiveHomeScreen> {
           )
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: tournamentSelected?null:BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(

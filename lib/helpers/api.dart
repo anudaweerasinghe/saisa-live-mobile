@@ -12,12 +12,12 @@ import 'package:saisa_live_app/models/tournament_model.dart';
 const baseUrl = "http://localhost:8080";
 
 
-Future<List<Livestream>> getAllLivestreams(bool liveStatus) async{
+Future<List<Livestream>> getAllLivestreams(bool liveStatus, int tournamentId) async{
   String url;
   if(liveStatus) {
-   url = baseUrl + '/livestreams?tournamentId=0&liveNow=1';
+   url = baseUrl + '/livestreams?tournamentId='+tournamentId.toString()+'&liveNow=1';
   }else{
-    url = baseUrl + '/livestreams?tournamentId=0&liveNow=0';
+    url = baseUrl + '/livestreams?tournamentId='+tournamentId.toString()+'&liveNow=0';
   }
   final response = await http.get(url);
 

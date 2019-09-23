@@ -321,6 +321,13 @@ class _EventsHomeScreenState extends State<EventsHomeScreen> {
                                             minWidth: double.infinity,
                                             child: RaisedButton(
                                               onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  new MaterialPageRoute(
+                                                      builder: (ctxt) =>
+                                                      new LiveHomeScreen(
+                                                        tournamentId: live?liveTournaments[index].id:archivedTournaments[index].id,)),
+                                                );
                                               },
                                               textColor: Colors.white,
                                               color: Color.fromARGB(

@@ -26,17 +26,20 @@ class ScoresHomeScreen extends StatefulWidget {
 }
 
 class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
-  int tournamentId;
-  bool tournamentSelected;
+
   bool live;
   bool fixtures;
   bool results;
-  Tournament tournamentDetails;
+
 
   List<Game> liveList;
   List<Game> resultsList;
   List<Game> fixturesList;
   List<String> resultDescriptions;
+
+  Tournament tournamentDetails;
+  int tournamentId;
+  bool tournamentSelected;
 
   _ScoresHomeScreenState({Key key, this.tournamentId});
 
@@ -80,7 +83,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
 
     }else{
 
-      tournamentDetails = await getTournamentById(1);
+      tournamentDetails = await getTournamentById(tournamentId);
 
       List<Game> liveG = await getGamesByTorunamentId(1, tournamentId);
       List<Game> resultG = await getGamesByTorunamentId(2, tournamentId);
