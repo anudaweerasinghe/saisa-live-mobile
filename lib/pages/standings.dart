@@ -96,6 +96,16 @@ class _StandingsScreenState extends State<StandingsScreen> {
                           Expanded(
                             flex: 1,
                             child: Text(
+                              "",
+                              style: new TextStyle(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'Roboto'),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Text(
                               "Team",
                               style: new TextStyle(
                                   fontSize: 12.0,
@@ -154,7 +164,7 @@ class _StandingsScreenState extends State<StandingsScreen> {
                             ),
                           ),
                           Expanded(
-                            flex: 1,
+                            flex: 2,
                             child: Text(
                               "Standing",
                               style: new TextStyle(
@@ -176,6 +186,14 @@ class _StandingsScreenState extends State<StandingsScreen> {
 
                             return new Row(
                               children: <Widget>[
+                                Expanded(
+                                  flex: 1,
+                                  child: Image.network(
+                                    tournamentParticipants.pools[index].participants[index1].team.logo,
+                                    width: 25,
+                                    height: 20,
+                                  ),
+                                ),
                                 Expanded(
                                   flex: 1,
                                   child: Text(
@@ -237,7 +255,7 @@ class _StandingsScreenState extends State<StandingsScreen> {
                                   ),
                                 ),
                                 Expanded(
-                                  flex: 1,
+                                  flex: 2,
                                   child: Text(
                                     tournamentParticipants.pools[index].participants[index1].standing.toString(),
                                     style: new TextStyle(
