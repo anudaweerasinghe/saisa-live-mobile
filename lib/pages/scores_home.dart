@@ -196,7 +196,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Expanded(
-                flex: 1,
+                flex: 2,
                 child: Container(
                   decoration: BoxDecoration(
                       gradient: LinearGradient(
@@ -365,7 +365,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 4,
+                                        flex: 6,
                                         child: Text(
                                           liveList[index].team1.team.name,
                                           textAlign: TextAlign.left,
@@ -410,7 +410,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 4,
+                                        flex: 6,
                                         child: Text(
                                           liveList[index].team2.team.name,
                                           textAlign: TextAlign.left,
@@ -530,7 +530,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Expanded(
-                flex: 1,
+                flex: 2,
                 child: Container(
                   decoration: BoxDecoration(
                       gradient: LinearGradient(
@@ -691,7 +691,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 4,
+                                        flex: 6,
                                         child: Text(
                                           fixturesList[index].team1.team.name,
                                           textAlign: TextAlign.left,
@@ -736,7 +736,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 4,
+                                        flex: 6,
                                         child: Text(
                                           fixturesList[index].team2.team.name,
                                           textAlign: TextAlign.left,
@@ -832,7 +832,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Expanded(
-                flex: 1,
+                flex: 2,
                 child: Container(
                   decoration: BoxDecoration(
                       gradient: LinearGradient(
@@ -993,7 +993,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 4,
+                                        flex: 6,
                                         child: Text(
                                           resultsList[index].team1.team.name,
                                           textAlign: TextAlign.left,
@@ -1038,7 +1038,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 4,
+                                        flex: 6,
                                         child: Text(
                                           resultsList[index].team2.team.name,
                                           textAlign: TextAlign.left,

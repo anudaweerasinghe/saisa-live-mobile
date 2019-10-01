@@ -29,6 +29,7 @@ class _StandingsScreenState extends State<StandingsScreen> {
 
     tournamentDetails = new Tournament();
     tournamentDetails.name = "";
+    tournamentParticipants = new TournamentParticipants();
 
     getData();
   }
@@ -36,6 +37,14 @@ class _StandingsScreenState extends State<StandingsScreen> {
   getData() async {
     tournamentDetails = await getTournamentById(tournamentId);
     tournamentParticipants = await getParticipantsByTournament(tournamentId);
+
+    for(int i=0;i<tournamentParticipants.pools.length;i++){
+
+      tournamentParticipants.pools[i].participants.sort((a, b){
+        return a.standing.compareTo(b.standing);
+      });
+
+    }
 
     setState(() {});
   }
@@ -98,7 +107,7 @@ class _StandingsScreenState extends State<StandingsScreen> {
                             child: Text(
                               "",
                               style: new TextStyle(
-                                  fontSize: 12.0,
+                                  fontSize: 9.0,
                                   fontWeight: FontWeight.w700,
                                   fontFamily: 'Roboto'),
                             ),
@@ -108,7 +117,7 @@ class _StandingsScreenState extends State<StandingsScreen> {
                             child: Text(
                               "Team",
                               style: new TextStyle(
-                                  fontSize: 12.0,
+                                  fontSize: 9.0,
                                   fontWeight: FontWeight.w700,
                                   fontFamily: 'Roboto'),
                             ),
@@ -118,7 +127,7 @@ class _StandingsScreenState extends State<StandingsScreen> {
                             child: Text(
                               "Games",
                               style: new TextStyle(
-                                  fontSize: 12.0,
+                                  fontSize: 9.0,
                                   fontWeight: FontWeight.w700,
                                   fontFamily: 'Roboto'),
                             ),
@@ -128,7 +137,7 @@ class _StandingsScreenState extends State<StandingsScreen> {
                             child: Text(
                               "Wins",
                               style: new TextStyle(
-                                  fontSize: 12.0,
+                                  fontSize: 9.0,
                                   fontWeight: FontWeight.w700,
                                   fontFamily: 'Roboto'),
                             ),
@@ -138,7 +147,7 @@ class _StandingsScreenState extends State<StandingsScreen> {
                             child: Text(
                               "Losses",
                               style: new TextStyle(
-                                  fontSize: 12.0,
+                                  fontSize: 9.0,
                                   fontWeight: FontWeight.w700,
                                   fontFamily: 'Roboto'),
                             ),
@@ -148,7 +157,7 @@ class _StandingsScreenState extends State<StandingsScreen> {
                             child: Text(
                               "NRs",
                               style: new TextStyle(
-                                  fontSize: 12.0,
+                                  fontSize: 9.0,
                                   fontWeight: FontWeight.w700,
                                   fontFamily: 'Roboto'),
                             ),
@@ -158,7 +167,7 @@ class _StandingsScreenState extends State<StandingsScreen> {
                             child: Text(
                               "Points",
                               style: new TextStyle(
-                                  fontSize: 12.0,
+                                  fontSize: 9.0,
                                   fontWeight: FontWeight.w700,
                                   fontFamily: 'Roboto'),
                             ),
@@ -168,7 +177,7 @@ class _StandingsScreenState extends State<StandingsScreen> {
                             child: Text(
                               "Standing",
                               style: new TextStyle(
-                                  fontSize: 12.0,
+                                  fontSize: 9.0,
                                   fontWeight: FontWeight.w700,
                                   fontFamily: 'Roboto'),
                             ),
@@ -188,11 +197,18 @@ class _StandingsScreenState extends State<StandingsScreen> {
                               children: <Widget>[
                                 Expanded(
                                   flex: 1,
-                                  child: Image.network(
-                                    tournamentParticipants.pools[index].participants[index1].team.logo,
-                                    width: 25,
-                                    height: 20,
-                                  ),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Image.network(
+                                        tournamentParticipants.pools[index].participants[index1].team.logo,
+                                        width: 25,
+                                        height: 20,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 2, horizontal: 2),
+                                      )
+                                    ],
+                                  )
                                 ),
                                 Expanded(
                                   flex: 1,

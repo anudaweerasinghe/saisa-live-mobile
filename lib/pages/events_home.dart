@@ -118,7 +118,7 @@ class _EventsHomeScreenState extends State<EventsHomeScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Expanded(
-            flex: 1,
+            flex: 2,
             child: Container(
               decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -274,7 +274,7 @@ class _EventsHomeScreenState extends State<EventsHomeScreen> {
                                               color: Color.fromARGB(
                                                   255, 20, 136, 204),
                                               elevation: 0,
-                                              child: Text("STANDINGS"),
+                                              child: Text("STANDINGS", style: TextStyle(fontSize: 10),),
                                               shape: RoundedRectangleBorder(
                                                   borderRadius: BorderRadius
                                                       .circular(10)
@@ -304,7 +304,7 @@ class _EventsHomeScreenState extends State<EventsHomeScreen> {
                                               color: Color.fromARGB(
                                                   255, 20, 136, 204),
                                               elevation: 0,
-                                              child: Text("SCORES"),
+                                              child: Text("SCORES", style: TextStyle(fontSize: 10),),
                                               shape: RoundedRectangleBorder(
                                                   borderRadius: BorderRadius
                                                       .circular(10)
@@ -335,7 +335,7 @@ class _EventsHomeScreenState extends State<EventsHomeScreen> {
                                               color: Color.fromARGB(
                                                   255, 20, 136, 204),
                                               elevation: 0,
-                                              child: Text("LIVESTREAMS"),
+                                              child: Text("LIVESTREAMS", style: TextStyle(fontSize: 10),),
                                               shape: RoundedRectangleBorder(
                                                   borderRadius: BorderRadius
                                                       .circular(10)
@@ -365,7 +365,7 @@ class _EventsHomeScreenState extends State<EventsHomeScreen> {
                                               color: Color.fromARGB(
                                                   255, 20, 136, 204),
                                               elevation: 0,
-                                              child: Text("MEDIA"),
+                                              child: Text("MEDIA", style: TextStyle(fontSize: 10),),
                                               shape: RoundedRectangleBorder(
                                                   borderRadius: BorderRadius
                                                       .circular(10)
