@@ -281,7 +281,8 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                 flex: 15,
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                  child: ListView.builder(
+                  child:
+                  ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     itemCount: liveList.length,

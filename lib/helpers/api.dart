@@ -10,7 +10,7 @@ import 'package:saisa_live_app/models/tournament_model.dart';
 import 'package:saisa_live_app/models/tournament_participant_model.dart';
 
 
-const baseUrl = "http://192.168.43.123:8080";
+const baseUrl = "http://142.93.212.170:8080/saisa-live/";
 
 
 Future<List<Livestream>> getAllLivestreams(bool liveStatus, int tournamentId) async{
