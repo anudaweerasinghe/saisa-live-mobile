@@ -105,6 +105,11 @@ class _LiveHomeScreenState extends State<LiveHomeScreen> {
       liveStreamList = liveL.reversed.toList();
       pastFootageList = pastL.reversed.toList();
 
+
+    }
+
+    if(liveStreamList.length==0&&pastFootageList.length!=0){
+      live=false;
     }
 
 

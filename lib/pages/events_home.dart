@@ -51,6 +51,9 @@ class _EventsHomeScreenState extends State<EventsHomeScreen> {
     liveTournaments = liveT.reversed.toList();
     archivedTournaments = archiveT.reversed.toList();
 
+    if(liveTournaments.length==0){
+      live=false;
+    }
 
     setState(() {});
   }
@@ -86,6 +89,8 @@ class _EventsHomeScreenState extends State<EventsHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+
     return new Scaffold(
       appBar: PreferredSize(
           child: new AppBar(
