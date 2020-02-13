@@ -78,7 +78,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
 
       liveList = liveG.reversed.toList();
       resultsList = resultG.reversed.toList();
-      fixturesList = fixtureG.reversed.toList();
+      fixturesList = fixtureG;
 
     }else{
 
@@ -92,6 +92,20 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
       resultsList = resultG.reversed.toList();
       fixturesList = fixtureG;
 
+
+    }
+
+    if(liveList.length==0){
+
+      if(fixturesList.length!=0){
+        live = false;
+        fixtures = true;
+        results = false;
+      }else{
+        live = false;
+        fixtures = false;
+        results = true;
+      }
 
     }
 
@@ -366,7 +380,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 6,
+                                        flex: 8,
                                         child: Text(
                                           liveList[index].team1.team.name,
                                           textAlign: TextAlign.left,
@@ -377,7 +391,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 20,
+                                        flex: 17,
                                         child: Text(
                                           liveList[index].team1Score,
                                           textAlign: TextAlign.right,
@@ -411,7 +425,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 6,
+                                        flex: 8,
                                         child: Text(
                                           liveList[index].team2.team.name,
                                           textAlign: TextAlign.left,
@@ -422,7 +436,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 20,
+                                        flex: 17,
                                         child: Text(
                                           liveList[index].team2Score,
                                           textAlign: TextAlign.right,
@@ -692,7 +706,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 6,
+                                        flex: 8,
                                         child: Text(
                                           fixturesList[index].team1.team.name,
                                           textAlign: TextAlign.left,
@@ -703,7 +717,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 20,
+                                        flex: 17,
                                         child: Text(
                                           "0",
                                           textAlign: TextAlign.right,
@@ -737,7 +751,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 6,
+                                        flex: 8,
                                         child: Text(
                                           fixturesList[index].team2.team.name,
                                           textAlign: TextAlign.left,
@@ -748,7 +762,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 20,
+                                        flex: 17,
                                         child: Text(
                                           "0",
                                           textAlign: TextAlign.right,
@@ -994,7 +1008,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 6,
+                                        flex: 8,
                                         child: Text(
                                           resultsList[index].team1.team.name,
                                           textAlign: TextAlign.left,
@@ -1005,7 +1019,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 20,
+                                        flex: 17,
                                         child: Text(
                                           resultsList[index].team1Score,
                                           textAlign: TextAlign.right,
@@ -1039,7 +1053,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 6,
+                                        flex: 8,
                                         child: Text(
                                           resultsList[index].team2.team.name,
                                           textAlign: TextAlign.left,
@@ -1050,7 +1064,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 20,
+                                        flex: 17,
                                         child: Text(
                                           resultsList[index].team2Score,
                                           textAlign: TextAlign.right,
