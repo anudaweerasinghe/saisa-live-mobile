@@ -295,7 +295,8 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                 flex: 15,
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                  child:
+                  child:liveList.isEmpty?
+                  Text("There are no Live Games right now. \n\nCome back and check later...", textAlign: TextAlign.left,):
                   ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
@@ -630,7 +631,9 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                 flex: 15,
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                  child: ListView.builder(
+                  child: fixturesList.isEmpty?
+                  Text("There are no Fixtures right now. \n\nCome back and check later...", textAlign: TextAlign.left,):
+                  ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     itemCount: fixturesList.length,
@@ -932,7 +935,9 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                 flex: 15,
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                  child: ListView.builder(
+                  child: resultsList.isEmpty?
+                  Text("There are no Results right now. \n\nCome back and check later...", textAlign: TextAlign.left,):
+                  ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     itemCount: resultsList.length,

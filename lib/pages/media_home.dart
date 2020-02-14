@@ -264,7 +264,9 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
                   flex: 15,
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                    child: ListView.builder(
+                    child: photosList.isEmpty?
+                    Text("There are no Photos right now. \n\nCome back and check later...", textAlign: TextAlign.left,):
+                    ListView.builder(
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
                         itemCount: photosList.length,
@@ -485,7 +487,9 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
                   flex: 15,
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                    child: ListView.builder(
+                    child: photosList.isEmpty?
+                    Text("There are no Videos right now. \n\nCome back and check later...", textAlign: TextAlign.left,):
+                    ListView.builder(
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
                         itemCount: videosList.length,
@@ -706,7 +710,9 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
                   flex: 15,
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                    child: ListView.builder(
+                    child: photosList.isEmpty?
+                    Text("There are no News items right now. \n\nCome back and check later...", textAlign: TextAlign.left,):
+                    ListView.builder(
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
                         itemCount: newsList.length,
