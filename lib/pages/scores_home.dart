@@ -78,6 +78,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
 
       liveList = liveG.reversed.toList();
       resultsList = resultG.reversed.toList();
+
       fixturesList = fixtureG;
 
     }else{
