@@ -10,7 +10,8 @@ import 'package:saisa_live_app/models/tournament_model.dart';
 import 'package:saisa_live_app/models/tournament_participant_model.dart';
 
 
-const baseUrl = "http://142.93.212.170:8080/saisa-live/";
+//const baseUrl = "http://142.93.212.170:8080/saisa-live/";
+const baseUrl = "http://localhost:8080";
 
 
 Future<List<Livestream>> getAllLivestreams(bool liveStatus, int tournamentId) async{
@@ -59,6 +60,24 @@ Future<List<Game>> getGames(int activeStatus) async{
 
 Future<List<Media>> getMedia(int type, int tournamentId) async{
   String url = baseUrl+'/media?tournamentId='+tournamentId.toString()+'&type='+type.toString();
+
+  final response = await http.get(url);
+
+  if(response.statusCode == 200){
+    List<Media> mediaList;
+
+    var data = json.decode(response.body) as List;
+    mediaList = data.map<Media>((json)=>Media.fromJson(json)).toList();
+
+    return mediaList;
+  }else{
+    return null;
+  }
+
+}
+
+Future<List<Media>> getPhotos(int tournamentId, String accessCode) async{
+  String url = baseUrl+'/media?tournamentId='+tournamentId.toString()+'&type=1&accessCode='+accessCode;
 
   final response = await http.get(url);
 

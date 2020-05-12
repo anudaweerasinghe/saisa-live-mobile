@@ -29,6 +29,8 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
   List<Media> photosList;
   List<Media> videosList;
   List<Media> newsList;
+  TextEditingController accessCodeController = new TextEditingController();
+
 
   bool photos;
   bool videos;
@@ -37,6 +39,8 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
   Tournament tournamentDetails;
   int tournamentId;
   bool tournamentSelected;
+
+  bool accessGranted;
 
   _MediaHomeScreenState({Key key, this.tournamentId});
 
@@ -47,6 +51,7 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
     photos = true;
     videos = false;
     news = false;
+    accessGranted=false;
 
     photosList = new List();
     videosList = new List();
@@ -71,25 +76,50 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
   getData() async {
 
     if(tournamentSelected==false) {
-      List<Media> photosL = await getMedia(1,0);
       List<Media> videosL = await getMedia(2,0);
       List<Media> newsL = await getMedia(3,0);
 
-      photosList = photosL.reversed.toList();
+
       videosList = videosL.reversed.toList();
       newsList = newsL.reversed.toList();
     }else{
 
       tournamentDetails = await getTournamentById(tournamentId);
 
-      List<Media> photosL = await getMedia(1,tournamentId);
       List<Media> videosL = await getMedia(2,tournamentId);
       List<Media> newsL = await getMedia(3,tournamentId);
 
-      photosList = photosL.reversed.toList();
+
       videosList = videosL.reversed.toList();
       newsList = newsL.reversed.toList();
 
+    }
+
+
+    setState(() {});
+  }
+
+  getPhotosData() async {
+
+    if(tournamentSelected==false) {
+      List<Media> photosL = await getPhotos(0, accessCodeController.text);
+      if(photosL!=null) {
+        accessGranted = true;
+        photosList = photosL.reversed.toList();
+      }else{
+        _showDialog("Incorrect Access Code! Please try again");
+      }
+    }else{
+
+      tournamentDetails = await getTournamentById(tournamentId);
+
+      List<Media> photosL = await getPhotos(tournamentId, accessCodeController.text);
+      if(photosL!=null) {
+        accessGranted = true;
+        photosList = photosL.reversed.toList();
+      }else{
+        _showDialog("Incorrect Access Code! Please try again");
+      }
     }
 
 
@@ -143,6 +173,48 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
     }
 
     setState(() {});
+  }
+  void _showDialog(String title) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text(title),
+          content: new TextField(
+            maxLength: 10,
+            controller: accessCodeController,
+            decoration: InputDecoration(
+              hintText: "Enter Access Code",
+
+            ),
+
+          ),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text(
+                  "Cancel",
+                style: TextStyle(color: Colors.red),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text("View Photos", style: new TextStyle(color: Color.fromARGB(
+                  255, 20, 136, 204)),),
+              onPressed: () {
+                getPhotosData();
+                Navigator.of(context).pop();
+
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -264,8 +336,33 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
                   flex: 15,
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                    child: photosList.isEmpty?
-                    Text("There are no Photos right now. \n\nCome back and check later...", textAlign: TextAlign.left,):
+                    child: !accessGranted?
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text("For privacy reasons, you need an access code to gain access to Photos from SAISA Events.\n\nContact your team's Athletics Director to get an access code.\n\n\n", textAlign: TextAlign.left,),
+
+                        Center(
+                            child: ButtonTheme(
+                              minWidth: double.infinity,
+                              child: RaisedButton(
+                                onPressed: () {
+                                  _showDialog("Gain Access to Photos");
+                                },
+                                textColor: Colors.white,
+                                color: Colors.redAccent,
+                                elevation: 5,
+                                child: Text("I Have an Access Code", style: new TextStyle(fontSize: 18),),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius
+                                        .circular(10)
+                                ),
+                              ),
+                            )
+                        ),
+                      ],
+                    ):photosList.isEmpty?Text("There are no Photo right now. \n\nCome back and check later...", textAlign: TextAlign.left,):
                     ListView.builder(
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
@@ -487,7 +584,7 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
                   flex: 15,
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                    child: photosList.isEmpty?
+                    child: videosList.isEmpty?
                     Text("There are no Videos right now. \n\nCome back and check later...", textAlign: TextAlign.left,):
                     ListView.builder(
                         scrollDirection: Axis.vertical,
@@ -710,7 +807,7 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
                   flex: 15,
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                    child: photosList.isEmpty?
+                    child: newsList.isEmpty?
                     Text("There are no News items right now. \n\nCome back and check later...", textAlign: TextAlign.left,):
                     ListView.builder(
                         scrollDirection: Axis.vertical,
