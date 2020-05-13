@@ -12,6 +12,7 @@ import 'package:saisa_live_app/models/media_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:saisa_live_app/pages/news_detail.dart';
 import 'package:saisa_live_app/models/tournament_model.dart';
+import 'package:intl/intl.dart';
 
 
 class MediaHomeScreen extends StatefulWidget {
@@ -217,6 +218,15 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
     );
   }
 
+  String formatDate(String unixDate){
+
+    var date = new DateTime.fromMillisecondsSinceEpoch(int.parse(unixDate)*1000);
+    date = date.toLocal();
+    String formattedDate = DateFormat('hh:mm a, EEEE dd MMMM yyyy').format(date);
+    return formattedDate;
+
+  }
+  
   @override
   Widget build(BuildContext context) {
     if(photos) {
@@ -395,7 +405,18 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
                                               fontFamily: 'Roboto')),
                                       Padding(
                                         padding: EdgeInsets.symmetric(
-                                            vertical: 3, horizontal: 8),
+                                            vertical: 5, horizontal: 8),
+                                      ),
+                                      Text(
+                                        formatDate(photosList[index].timestamp),
+                                        style: new TextStyle(
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: 'Roboto',
+                                        ),
+                                      ),Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 5, horizontal: 8),
                                       ),
                                       new Image.network(
                                         photosList[index].coverImg,
@@ -618,7 +639,18 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
                                               fontFamily: 'Roboto')),
                                       Padding(
                                         padding: EdgeInsets.symmetric(
-                                            vertical: 3, horizontal: 8),
+                                            vertical: 5, horizontal: 8),
+                                      ),
+                                      Text(
+                                        formatDate(videosList[index].timestamp),
+                                        style: new TextStyle(
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: 'Roboto',
+                                        ),
+                                      ),Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 5, horizontal: 8),
                                       ),
                                       new Image.network(
                                         videosList[index].coverImg,
@@ -841,7 +873,18 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
                                               fontFamily: 'Roboto')),
                                       Padding(
                                         padding: EdgeInsets.symmetric(
-                                            vertical: 3, horizontal: 8),
+                                            vertical: 5, horizontal: 8),
+                                      ),
+                                      Text(
+                                        formatDate(newsList[index].timestamp),
+                                        style: new TextStyle(
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: 'Roboto',
+                                        ),
+                                      ),Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 5, horizontal: 8),
                                       ),
                                       new Image.network(
                                         newsList[index].coverImg,
@@ -863,7 +906,7 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
                                                   new MaterialPageRoute(
                                                       builder: (ctxt) =>
                                                       new NewsDetailScreen(
-                                                        coverImg: newsList[index].coverImg, title: newsList[index].title, text: newsList[index].text,)),
+                                                        coverImg: newsList[index].coverImg, title: newsList[index].title, text: newsList[index].text,timestamp: formatDate(newsList[index].timestamp),)),
                                                 );
                                               },
                                               textColor: Colors.white,

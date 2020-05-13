@@ -6,6 +6,7 @@ import 'package:saisa_live_app/pages/media_home.dart';
 import 'package:saisa_live_app/helpers/api.dart';
 import 'package:saisa_live_app/models/tournament_model.dart';
 import 'package:saisa_live_app/pages/standings.dart';
+import 'package:intl/intl.dart';
 
 
 class EventsHomeScreen extends StatefulWidget {
@@ -85,6 +86,15 @@ class _EventsHomeScreenState extends State<EventsHomeScreen> {
         );
       }
     });
+  }
+
+  String formatDate(String unixDate){
+
+    var date = new DateTime.fromMillisecondsSinceEpoch(int.parse(unixDate)*1000);
+    date = date.toLocal();
+    String formattedDate = DateFormat('EEEE, dd MMMM yyyy').format(date);
+    return formattedDate;
+
   }
 
   @override
@@ -237,7 +247,7 @@ class _EventsHomeScreenState extends State<EventsHomeScreen> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: <Widget>[
                                             Text(
-                                              live?liveTournaments[index].startDate:archivedTournaments[index].startDate,
+                                              live?formatDate(liveTournaments[index].startDate):formatDate(archivedTournaments[index].startDate),
                                               style: new TextStyle(
                                                   fontSize: 16.0,
                                                   fontWeight: FontWeight.w500,

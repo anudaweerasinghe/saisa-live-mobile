@@ -10,6 +10,7 @@ import 'package:saisa_live_app/models/tournament_model.dart';
 import 'package:async/async.dart';
 
 import 'package:url_launcher/url_launcher.dart';
+import 'package:intl/intl.dart';
 
 
 class ScoresHomeScreen extends StatefulWidget {
@@ -174,6 +175,15 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
     }
 
     setState(() {});
+  }
+
+  String formatDate(String unixDate){
+
+    var date = new DateTime.fromMillisecondsSinceEpoch(int.parse(unixDate)*1000);
+    date = date.toLocal();
+    String formattedDate = DateFormat('hh:mm a, EEEE dd MMMM yyyy').format(date);
+    return formattedDate;
+
   }
 
   @override
@@ -353,7 +363,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                   Text(
                                     liveList[index].gameDescription +
                                         " - " +
-                                        liveList[index].startTime,
+                                        formatDate(liveList[index].startTime),
                                     style: new TextStyle(
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.w400,
@@ -681,7 +691,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                   Text(
                                     fixturesList[index].gameDescription +
                                         " - " +
-                                        fixturesList[index].startTime,
+                                        formatDate(fixturesList[index].startTime),
                                     style: new TextStyle(
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.w400,
@@ -985,7 +995,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                   Text(
                                     resultsList[index].gameDescription +
                                         " - " +
-                                        resultsList[index].startTime,
+                                        formatDate(resultsList[index].startTime),
                                     style: new TextStyle(
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.w400,
