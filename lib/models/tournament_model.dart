@@ -13,6 +13,7 @@ class Tournament{
   bool poolsActive;
   int poolQuantity;
   bool active;
+  bool meetsActive;
 
   Tournament({
     this.id, 
@@ -27,7 +28,8 @@ class Tournament{
     this.scoresActive, 
     this.poolsActive, 
     this.poolQuantity, 
-    this.active
+    this.active,
+    this.meetsActive
   });
 
 
@@ -46,6 +48,7 @@ class Tournament{
       poolsActive:json['poolsActive'],
       poolQuantity:json['poolQuantity'],
       active:json['active'],
+      meetsActive:json['meetsActive']
 
     );
   }

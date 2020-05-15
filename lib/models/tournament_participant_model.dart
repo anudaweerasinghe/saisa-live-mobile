@@ -16,11 +16,12 @@ class TournamentParticipants{
   bool poolsActive;
   int poolQuantity;
   bool active;
+  bool meetsActive;
 
   TournamentParticipants({this.pools, this.name, this.sportId, this.url,
       this.logo, this.location, this.startDate, this.endDate,
       this.standingsActive, this.scoresActive, this.poolsActive,
-      this.poolQuantity, this.active});
+      this.poolQuantity, this.active, this.meetsActive});
 
   factory TournamentParticipants.fromJson(Map<String, dynamic> json){
 
@@ -41,6 +42,7 @@ class TournamentParticipants{
       poolsActive:json['poolsActive'],
       poolQuantity:json['poolQuantity'],
       active:json['active'],
+      meetsActive:json['meetsActive'],
 
     );
   }

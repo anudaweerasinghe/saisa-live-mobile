@@ -184,7 +184,6 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
         return AlertDialog(
           title: new Text(title),
           content: new TextField(
-            maxLength: 10,
             controller: accessCodeController,
             decoration: InputDecoration(
               hintText: "Enter Access Code",
