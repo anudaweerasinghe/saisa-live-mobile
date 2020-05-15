@@ -11,6 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'package:saisa_live_app/pages/scores_home.dart';
 import 'package:saisa_live_app/pages/media_home.dart';
+import 'meets_home.dart';
 
 class LiveHomeScreen extends StatefulWidget {
   final int tournamentId;
@@ -56,8 +57,9 @@ class _LiveHomeScreenState extends State<LiveHomeScreen> {
     getData();
   }
 
-  int selectedIndex = 1;
+  int selectedIndex = 2;
   Color eventsBg = Colors.black54;
+
   Color scoresBg = Colors.black54;
 
 
@@ -70,12 +72,19 @@ class _LiveHomeScreenState extends State<LiveHomeScreen> {
           context,
           new MaterialPageRoute(builder: (ctxt) => new ScoresHomeScreen()),
         );
-      }else if(selectedIndex == 2){
+      }else if (selectedIndex==1){
+
+        Navigator.pushReplacement(
+          context,
+          new MaterialPageRoute(builder: (ctxt) => new MeetsHomeScreen()),
+        );
+
+      }else if(selectedIndex == 3){
         Navigator.pushReplacement(
           context,
           new MaterialPageRoute(builder: (ctxt) => new MediaHomeScreen()),
         );
-      }else if (selectedIndex == 3) {
+      }else if (selectedIndex == 4) {
         Navigator.pushReplacement(
           context,
           new MaterialPageRoute(builder: (ctxt) => new EventsHomeScreen()),
@@ -403,6 +412,8 @@ class _LiveHomeScreenState extends State<LiveHomeScreen> {
                 color: scoresBg,
               ),
               title: Text('SCORES')),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.directions_run), title: Text('MEETS')),
           BottomNavigationBarItem(
               icon: Icon(Icons.live_tv), title: Text('LIVE')),
           BottomNavigationBarItem(

@@ -8,6 +8,8 @@ import 'package:saisa_live_app/models/tournament_model.dart';
 import 'package:saisa_live_app/pages/standings.dart';
 import 'package:intl/intl.dart';
 
+import 'meets_home.dart';
+
 
 class EventsHomeScreen extends StatefulWidget {
 
@@ -60,7 +62,7 @@ class _EventsHomeScreenState extends State<EventsHomeScreen> {
   }
 
 
-  int selectedIndex = 3;
+  int selectedIndex = 4;
   Color eventsBg = Color.fromARGB(255, 20, 136, 204);
   Color scoresBg = Colors.black54;
 
@@ -69,7 +71,7 @@ class _EventsHomeScreenState extends State<EventsHomeScreen> {
       selectedIndex = index;
 
 
-      if (selectedIndex == 1) {
+      if (selectedIndex == 2) {
         Navigator.pushReplacement(
           context,
           new MaterialPageRoute(builder: (ctxt) => new LiveHomeScreen()),
@@ -79,11 +81,18 @@ class _EventsHomeScreenState extends State<EventsHomeScreen> {
           context,
           new MaterialPageRoute(builder: (ctxt) => new ScoresHomeScreen()),
         );
-      } else if (selectedIndex == 2) {
+      } else if (selectedIndex == 3) {
         Navigator.pushReplacement(
           context,
           new MaterialPageRoute(builder: (ctxt) => new MediaHomeScreen()),
         );
+      }else if (selectedIndex==1){
+
+        Navigator.pushReplacement(
+          context,
+          new MaterialPageRoute(builder: (ctxt) => new MeetsHomeScreen()),
+        );
+
       }
     });
   }
@@ -271,7 +280,8 @@ class _EventsHomeScreenState extends State<EventsHomeScreen> {
                                   ),
                                   Row(
                                     children: <Widget>[
-                                      Expanded(
+                                        (live?liveTournaments[index].standingsActive:archivedTournaments[index].standingsActive)?
+                                        Expanded(
                                         flex: 15,
                                           child: ButtonTheme(
                                             minWidth: double.infinity,
@@ -296,11 +306,15 @@ class _EventsHomeScreenState extends State<EventsHomeScreen> {
                                               ),
                                             ),
                                           )
+                                      ):Padding(
+                                        padding: EdgeInsets.all(0),
                                       ),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Padding(padding: EdgeInsets.all(0)),
-                                      ),
+
+                                    ],
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      (live?liveTournaments[index].scoresActive:archivedTournaments[index].scoresActive)?
                                       Expanded(
                                           flex: 15,
                                           child: ButtonTheme(
@@ -326,7 +340,39 @@ class _EventsHomeScreenState extends State<EventsHomeScreen> {
                                               ),
                                             ),
                                           )
-                                      ),
+                                      ):Padding(padding: EdgeInsets.all(0),),
+                                      (live?liveTournaments[index].scoresActive&&liveTournaments[index].meetsActive:archivedTournaments[index].scoresActive&&archivedTournaments[index].meetsActive)?
+                                      Expanded(
+                                        flex: 1,
+                                        child: Padding(padding: EdgeInsets.all(0)),
+                                      ):Padding(padding: EdgeInsets.all(0),),
+                                      (live?liveTournaments[index].meetsActive:archivedTournaments[index].meetsActive)?
+                                      Expanded(
+                                          flex: 15,
+                                          child: ButtonTheme(
+                                            minWidth: double.infinity,
+                                            child: RaisedButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  new MaterialPageRoute(
+                                                      builder: (ctxt) =>
+                                                      new MeetsHomeScreen(
+                                                        tournamentId: live?liveTournaments[index].id:archivedTournaments[index].id,)),
+                                                );
+                                              },
+                                              textColor: Colors.white,
+                                              color: Color.fromARGB(
+                                                  255, 20, 136, 204),
+                                              elevation: 0,
+                                              child: Text("MEET RESULTS", style: TextStyle(fontSize: 10),),
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius
+                                                      .circular(10)
+                                              ),
+                                            ),
+                                          )
+                                      ):Padding(padding: EdgeInsets.all(0),),
 
                                     ],
                                   ),
@@ -410,6 +456,8 @@ class _EventsHomeScreenState extends State<EventsHomeScreen> {
               icon: new Image.asset(
                 "images/scores.png", width: 24, height: 24, color: scoresBg,),
               title: Text('SCORES')),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.directions_run), title: Text('MEETS')),
           BottomNavigationBarItem(
               icon: Icon(Icons.live_tv), title: Text('LIVE')),
 

@@ -8,6 +8,8 @@ import 'package:saisa_live_app/models/games_model.dart';
 import 'package:saisa_live_app/models/media_model.dart';
 import 'package:saisa_live_app/models/tournament_model.dart';
 import 'package:saisa_live_app/models/tournament_participant_model.dart';
+import 'package:saisa_live_app/models/meets_model.dart';
+import 'package:saisa_live_app/models/meets2_model.dart';
 
 
 //const baseUrl = "http://142.93.212.170:8080/saisa-live/";
@@ -177,5 +179,81 @@ Future<TournamentParticipants> getParticipantsByTournament(int tournamentId) asy
 
 
 
+
+}
+
+Future<List<Meets>> getMeets(int activeStatus) async{
+
+  String url = baseUrl+'/meets?activeStatus='+activeStatus.toString();
+
+  final response = await http.get(url);
+
+  if(response.statusCode == 200){
+    List<Meets> meetsList;
+
+    var data = json.decode(response.body) as List;
+    meetsList = data.map<Meets>((json)=>Meets.fromJson(json)).toList();
+
+    return meetsList;
+  }else{
+    return null;
+  }
+
+}
+
+Future<List<MeetsLive>> getMeetsLive(int activeStatus) async{
+
+  String url = baseUrl+'/meets?activeStatus='+activeStatus.toString();
+
+  final response = await http.get(url);
+
+  if(response.statusCode == 200){
+    List<MeetsLive> meetsList;
+
+    var data = json.decode(response.body) as List;
+    meetsList = data.map<MeetsLive>((json)=>MeetsLive.fromJson(json)).toList();
+
+    return meetsList;
+  }else{
+    return null;
+  }
+
+}
+
+Future<List<Meets>> getMeetsByTournamentId(int activeStatus, int tournamentId) async{
+
+  String url = baseUrl+'/meets?activeStatus='+activeStatus.toString()+'&tournamentId='+tournamentId.toString();
+
+  final response = await http.get(url);
+
+  if(response.statusCode == 200){
+    List<Meets> meetsList;
+
+    var data = json.decode(response.body) as List;
+    meetsList = data.map<Meets>((json)=>Meets.fromJson(json)).toList();
+
+    return meetsList;
+  }else{
+    return null;
+  }
+
+}
+
+Future<List<MeetsLive>> getMeetsLiveByTournamentId(int activeStatus, int tournamentId) async{
+
+  String url = baseUrl+'/meets?activeStatus='+activeStatus.toString()+'&tournamentId='+tournamentId.toString();
+
+  final response = await http.get(url);
+
+  if(response.statusCode == 200){
+    List<MeetsLive> meetsList;
+
+    var data = json.decode(response.body) as List;
+    meetsList = data.map<MeetsLive>((json)=>MeetsLive.fromJson(json)).toList();
+
+    return meetsList;
+  }else{
+    return null;
+  }
 
 }

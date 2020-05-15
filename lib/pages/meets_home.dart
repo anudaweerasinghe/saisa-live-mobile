@@ -1,48 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:saisa_live_app/pages/live_home.dart';
-import 'package:saisa_live_app/models/games_model.dart';
 import 'package:saisa_live_app/helpers/api.dart';
 import 'package:saisa_live_app/pages/media_home.dart';
 import 'package:saisa_live_app/pages/events_home.dart';
 import 'package:saisa_live_app/models/tournament_model.dart';
-import 'package:saisa_live_app/pages/meets_home.dart';
+import 'package:saisa_live_app/pages/scores_home.dart';
 
 import 'package:async/async.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 import 'package:intl/intl.dart';
 
+import 'package:saisa_live_app/models/games_model.dart';
+import 'package:saisa_live_app/models/meets_model.dart';
+import 'package:saisa_live_app/models/meets2_model.dart';
 
-class ScoresHomeScreen extends StatefulWidget {
+class MeetsHomeScreen extends StatefulWidget {
 
   final int tournamentId;
 
-  ScoresHomeScreen(
+  MeetsHomeScreen(
       {Key key, this.tournamentId})
       : super(key: key);
 
   @override
-  _ScoresHomeScreenState createState() => new _ScoresHomeScreenState(tournamentId: tournamentId);
+  _MeetsHomeScreenState createState() => new _MeetsHomeScreenState(tournamentId: tournamentId);
 }
 
-class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
+class _MeetsHomeScreenState extends State<MeetsHomeScreen> {
 
   bool live;
   bool fixtures;
   bool results;
 
 
-  List<Game> liveList;
-  List<Game> resultsList;
-  List<Game> fixturesList;
+  List<MeetsLive> liveList;
+  List<Meets> resultsList;
+  List<MeetsLive> fixturesList;
   List<String> resultDescriptions;
 
   Tournament tournamentDetails;
   int tournamentId;
   bool tournamentSelected;
 
-  _ScoresHomeScreenState({Key key, this.tournamentId});
+
+  _MeetsHomeScreenState({Key key, this.tournamentId});
 
 
   @override
@@ -74,9 +77,9 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
   getData() async {
 
     if(tournamentSelected==false) {
-      List<Game> liveG = await getGames(1);
-      List<Game> resultG = await getGames(2);
-      List<Game> fixtureG = await getGames(0);
+      List<MeetsLive> liveG = await getMeetsLive(1);
+      List<Meets> resultG = await getMeets(2);
+      List<MeetsLive> fixtureG = await getMeetsLive(0);
 
       liveList = liveG.reversed.toList();
       resultsList = resultG.reversed.toList();
@@ -87,9 +90,9 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
 
       tournamentDetails = await getTournamentById(tournamentId);
 
-      List<Game> liveG = await getGamesByTorunamentId(1, tournamentId);
-      List<Game> resultG = await getGamesByTorunamentId(2, tournamentId);
-      List<Game> fixtureG = await getGamesByTorunamentId(0, tournamentId);
+      List<MeetsLive> liveG = await getMeetsLiveByTournamentId(1, tournamentId);
+      List<Meets> resultG = await getMeetsByTournamentId(2, tournamentId);
+      List<MeetsLive> fixtureG = await getMeetsLiveByTournamentId(0, tournamentId);
 
       liveList = liveG.reversed.toList();
       resultsList = resultG.reversed.toList();
@@ -112,15 +115,6 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
 
     }
 
-    for(int i=0;i<resultsList.length; i++){
-      if(resultsList[i].result==1){
-        resultDescriptions.add(resultsList[i].team1.team.name+" Won");
-      }else if(resultsList[i].result==2){
-        resultDescriptions.add(resultsList[i].team2.team.name+" Won");
-      }else{
-        resultDescriptions.add("No Result");
-      }
-    }
 
     setState(() {});
   }
@@ -133,27 +127,25 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
     }
   }
 
-  int selectedIndex = 0;
+  int selectedIndex = 1;
   Color eventsBg = Colors.black54;
-  Color scoresBg = Color.fromARGB(255, 20, 136, 204);
+  Color scoresBg = Colors.black54;
 
   void onNavigationItemTapped(int index) {
     setState(() {
       selectedIndex = index;
 
-      if (selectedIndex==1){
-
+      if (selectedIndex == 0) {
         Navigator.pushReplacement(
           context,
-          new MaterialPageRoute(builder: (ctxt) => new MeetsHomeScreen()),
+          new MaterialPageRoute(builder: (ctxt) => new ScoresHomeScreen()),
         );
-
-      }else if(selectedIndex == 2) {
+      } else if (selectedIndex == 2) {
         Navigator.pushReplacement(
           context,
           new MaterialPageRoute(builder: (ctxt) => new LiveHomeScreen()),
         );
-      } else if (selectedIndex == 3) {
+      }else if (selectedIndex == 3) {
         Navigator.pushReplacement(
           context,
           new MaterialPageRoute(builder: (ctxt) => new MediaHomeScreen()),
@@ -315,7 +307,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                   child:liveList.isEmpty?
-                  Text("There are no Live Games right now. \n\nCome back and check later...", textAlign: TextAlign.left,):
+                  Text("There are no Live Meet Events right now. \n\nCome back and check later...", textAlign: TextAlign.left,):
                   ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
@@ -366,10 +358,10 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                   ),
                                   Padding(
                                     padding: EdgeInsets.symmetric(
-                                        vertical: 4, horizontal: 4),
+                                        vertical: 12, horizontal: 4),
                                   ),
                                   Text(
-                                    liveList[index].gameDescription +
+                                    liveList[index].description +
                                         " - " +
                                         formatDate(liveList[index].startTime),
                                     style: new TextStyle(
@@ -380,97 +372,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                   ),
                                   Padding(
                                     padding: EdgeInsets.symmetric(
-                                        vertical: 6, horizontal: 6),
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        flex: 4,
-                                        child: Image.network(
-                                          liveList[index].team1.team.logo,
-                                          width: 30,
-                                          height: 30,
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 0, horizontal: 0),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 8,
-                                        child: Text(
-                                          liveList[index].team1.team.name,
-                                          textAlign: TextAlign.left,
-                                          style: new TextStyle(
-                                              fontSize: 19.0,
-                                              fontWeight: FontWeight.w900,
-                                              fontFamily: 'Roboto'),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 17,
-                                        child: Text(
-                                          liveList[index].team1Score,
-                                          textAlign: TextAlign.right,
-                                          style: new TextStyle(
-                                              fontSize: 19.0,
-                                              fontWeight: FontWeight.w700,
-                                              fontFamily: 'Roboto'),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 6, horizontal: 6),
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        flex: 4,
-                                        child: Image.network(
-                                          liveList[index].team2.team.logo,
-                                          width: 30,
-                                          height: 30,
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 0, horizontal: 0),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 8,
-                                        child: Text(
-                                          liveList[index].team2.team.name,
-                                          textAlign: TextAlign.left,
-                                          style: new TextStyle(
-                                              fontSize: 19.0,
-                                              fontWeight: FontWeight.w900,
-                                              fontFamily: 'Roboto'),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 17,
-                                        child: Text(
-                                          liveList[index].team2Score,
-                                          textAlign: TextAlign.right,
-                                          style: new TextStyle(
-                                              fontSize: 19.0,
-                                              fontWeight: FontWeight.w700,
-                                              fontFamily: 'Roboto'),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 6, horizontal: 6),
+                                        vertical: 12, horizontal: 6),
                                   ),
                                   Center(
                                       child: ButtonTheme(
@@ -652,7 +554,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                   child: fixturesList.isEmpty?
-                  Text("There are no Fixtures right now. \n\nCome back and check later...", textAlign: TextAlign.left,):
+                  Text("There are no Meet Event Fixtures right now. \n\nCome back and check later...", textAlign: TextAlign.left,):
                   ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
@@ -688,8 +590,12 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 1,
-                                        child: Padding(padding: EdgeInsets.symmetric(vertical: 0, horizontal: 0))
+                                          flex: 1,
+                                          child: Image.network(
+                                            fixturesList[index].tournament.logo,
+                                            width: 40,
+                                            height: 40,
+                                          )
                                       )
                                     ],
                                   ),
@@ -698,104 +604,25 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                         vertical: 4, horizontal: 4),
                                   ),
                                   Text(
-                                    fixturesList[index].gameDescription +
-                                        " - " +
-                                        formatDate(fixturesList[index].startTime),
+                                    fixturesList[index].description,
                                     style: new TextStyle(
                                       fontSize: 14.0,
-                                      fontWeight: FontWeight.w400,
+                                      fontWeight: FontWeight.w600,
                                       fontFamily: 'Roboto',
                                     ),
                                   ),
                                   Padding(
                                     padding: EdgeInsets.symmetric(
-                                        vertical: 6, horizontal: 6),
+                                        vertical: 10, horizontal: 6),
                                   ),
-                                  Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        flex: 4,
-                                        child: Image.network(
-                                          fixturesList[index].team1.team.logo,
-                                          width: 30,
-                                          height: 30,
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 0, horizontal: 0),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 8,
-                                        child: Text(
-                                          fixturesList[index].team1.team.name,
-                                          textAlign: TextAlign.left,
-                                          style: new TextStyle(
-                                              fontSize: 19.0,
-                                              fontWeight: FontWeight.w900,
-                                              fontFamily: 'Roboto'),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 17,
-                                        child: Text(
-                                          "0",
-                                          textAlign: TextAlign.right,
-                                          style: new TextStyle(
-                                              fontSize: 19.0,
-                                              fontWeight: FontWeight.w700,
-                                              fontFamily: 'Roboto'),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 6, horizontal: 6),
-                                  ),
-                                  Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        flex: 4,
-                                        child: Image.network(
-                                          fixturesList[index].team2.team.logo,
-                                          width: 30,
-                                          height: 30,
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 0, horizontal: 0),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 8,
-                                        child: Text(
-                                          fixturesList[index].team2.team.name,
-                                          textAlign: TextAlign.left,
-                                          style: new TextStyle(
-                                              fontSize: 19.0,
-                                              fontWeight: FontWeight.w900,
-                                              fontFamily: 'Roboto'),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 17,
-                                        child: Text(
-                                          "0",
-                                          textAlign: TextAlign.right,
-                                          style: new TextStyle(
-                                              fontSize: 19.0,
-                                              fontWeight: FontWeight.w700,
-                                              fontFamily: 'Roboto'),
-                                        ),
-                                      )
-                                    ],
+
+                                  Text(
+                                    formatDate(fixturesList[index].startTime),
+                                    style: new TextStyle(
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w400,
+                                      fontFamily: 'Roboto',
+                                    ),
                                   ),
                                 ],
                               ),
@@ -957,7 +784,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                   child: resultsList.isEmpty?
-                  Text("There are no Results right now. \n\nCome back and check later...", textAlign: TextAlign.left,):
+                  Text("There are no Meets Event Results right now. \n\nCome back and check later...", textAlign: TextAlign.left,):
                   ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
@@ -1003,7 +830,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                         vertical: 4, horizontal: 4),
                                   ),
                                   Text(
-                                    resultsList[index].gameDescription +
+                                    resultsList[index].description +
                                         " - " +
                                         formatDate(resultsList[index].startTime),
                                     style: new TextStyle(
@@ -1021,7 +848,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                       Expanded(
                                         flex: 4,
                                         child: Image.network(
-                                          resultsList[index].team1.team.logo,
+                                          resultsList[index].p1Team.team.logo,
                                           width: 30,
                                           height: 30,
                                         ),
@@ -1034,25 +861,40 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 8,
+                                        flex: 14,
                                         child: Text(
-                                          resultsList[index].team1.team.name,
+                                          resultsList[index].p1name,
                                           textAlign: TextAlign.left,
                                           style: new TextStyle(
-                                              fontSize: 19.0,
+                                              fontSize: 14.0,
                                               fontWeight: FontWeight.w900,
                                               fontFamily: 'Roboto'),
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 17,
+                                        flex: 15,
                                         child: Text(
-                                          resultsList[index].team1Score,
+                                          resultsList[index].p1result,
                                           textAlign: TextAlign.right,
                                           style: new TextStyle(
-                                              fontSize: 19.0,
+                                              fontSize: 18.0,
                                               fontWeight: FontWeight.w700,
                                               fontFamily: 'Roboto'),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: resultsList[index].p1record?Text(
+                                          "R",
+                                          textAlign: TextAlign.right,
+                                          style: new TextStyle(
+                                              fontSize: 18.0,
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.w700,
+                                              fontFamily: 'Roboto'),
+                                        ):Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 0, horizontal: 0),
                                         ),
                                       )
                                     ],
@@ -1066,7 +908,7 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                       Expanded(
                                         flex: 4,
                                         child: Image.network(
-                                          resultsList[index].team2.team.logo,
+                                          resultsList[index].p2Team.team.logo,
                                           width: 30,
                                           height: 30,
                                         ),
@@ -1079,48 +921,128 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 8,
+                                        flex: 14,
                                         child: Text(
-                                          resultsList[index].team2.team.name,
+                                          resultsList[index].p2name,
                                           textAlign: TextAlign.left,
                                           style: new TextStyle(
-                                              fontSize: 19.0,
+                                              fontSize: 14.0,
                                               fontWeight: FontWeight.w900,
                                               fontFamily: 'Roboto'),
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 17,
+                                        flex: 15,
                                         child: Text(
-                                          resultsList[index].team2Score,
+                                          resultsList[index].p2result,
                                           textAlign: TextAlign.right,
                                           style: new TextStyle(
-                                              fontSize: 19.0,
+                                              fontSize: 18.0,
                                               fontWeight: FontWeight.w700,
                                               fontFamily: 'Roboto'),
                                         ),
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: resultsList[index].p2record?Text(
+                                          "R",
+                                          textAlign: TextAlign.right,
+                                          style: new TextStyle(
+                                              fontSize: 18.0,
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.w700,
+                                              fontFamily: 'Roboto'),
+                                        ):Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 0, horizontal: 0),
+                                        ),
                                       )
                                     ],
+
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 6, horizontal: 6),
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        flex: 4,
+                                        child: Image.network(
+                                          resultsList[index].p3Team.team.logo,
+                                          width: 30,
+                                          height: 30,
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 1,
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 0, horizontal: 0),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 14,
+                                        child: Text(
+                                          resultsList[index].p3name,
+                                          textAlign: TextAlign.left,
+                                          style: new TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w900,
+                                              fontFamily: 'Roboto'),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 15,
+                                        child: Text(
+                                          resultsList[index].p3result,
+                                          textAlign: TextAlign.right,
+                                          style: new TextStyle(
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.w700,
+                                              fontFamily: 'Roboto'),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: resultsList[index].p3record?Text(
+                                          "R",
+                                          textAlign: TextAlign.right,
+                                          style: new TextStyle(
+                                              fontSize: 18.0,
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.w700,
+                                              fontFamily: 'Roboto'),
+                                        ):Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 0, horizontal: 0),
+                                        ),
+                                      )
+                                    ],
+
                                   ),
                                   Padding(
                                     padding: EdgeInsets.symmetric(
                                         vertical: 6, horizontal: 6),
                                   ),
                                   Center(
-                                    child:Text(
-                                      resultDescriptions[index],
-                                      textAlign: TextAlign.right,
-                                      style: new TextStyle(
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: 'Roboto',
-                                      ),
-                                    ) ,
-                                  ),
-
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 6, horizontal: 6),
+                                      child: ButtonTheme(
+                                        minWidth: double.infinity,
+                                        child: RaisedButton(
+                                          onPressed: () {
+                                            openStream(resultsList[index].resultUrl);
+                                          },
+                                          textColor: Colors.white,
+                                          color: Color.fromARGB(
+                                              255, 20, 136, 204),
+                                          elevation: 0,
+                                          child: Text("View Full Results"),
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius
+                                                  .circular(10)
+                                          ),
+                                        ),
+                                      )
                                   ),
                                   Center(
                                       child: ButtonTheme(
@@ -1141,7 +1063,6 @@ class _ScoresHomeScreenState extends State<ScoresHomeScreen> {
                                         ),
                                       )
                                   ),
-
                                 ],
                               ),
                             ),

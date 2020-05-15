@@ -13,6 +13,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:saisa_live_app/pages/news_detail.dart';
 import 'package:saisa_live_app/models/tournament_model.dart';
 import 'package:intl/intl.dart';
+import 'meets_home.dart';
 
 
 class MediaHomeScreen extends StatefulWidget {
@@ -70,7 +71,7 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
     getData();
   }
 
-  int selectedIndex = 2;
+  int selectedIndex = 3;
   Color eventsBg = Colors.black54;
   Color scoresBg = Colors.black54;
 
@@ -139,7 +140,7 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
     setState(() {
       selectedIndex = index;
 
-      if (selectedIndex == 1) {
+      if (selectedIndex == 2) {
         Navigator.pushReplacement(
           context,
           new MaterialPageRoute(builder: (ctxt) => new LiveHomeScreen()),
@@ -149,7 +150,14 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
           context,
           new MaterialPageRoute(builder: (ctxt) => new ScoresHomeScreen()),
         );
-      } else if (selectedIndex == 3) {
+      } else if (selectedIndex==1){
+
+        Navigator.pushReplacement(
+          context,
+          new MaterialPageRoute(builder: (ctxt) => new MeetsHomeScreen()),
+        );
+
+      }else if (selectedIndex == 4) {
         Navigator.pushReplacement(
           context,
           new MaterialPageRoute(builder: (ctxt) => new EventsHomeScreen()),
@@ -470,6 +478,8 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
                 ),
                 title: Text('SCORES')),
             BottomNavigationBarItem(
+                icon: Icon(Icons.directions_run), title: Text('MEETS')),
+            BottomNavigationBarItem(
                 icon: Icon(Icons.live_tv), title: Text('LIVE')),
             BottomNavigationBarItem(
                 icon: Icon(Icons.photo_library), title: Text('MEDIA')),
@@ -703,6 +713,8 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
                   color: scoresBg,
                 ),
                 title: Text('SCORES')),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.directions_run), title: Text('MEETS')),
             BottomNavigationBarItem(
                 icon: Icon(Icons.live_tv), title: Text('LIVE')),
             BottomNavigationBarItem(
@@ -942,6 +954,8 @@ class _MediaHomeScreenState extends State<MediaHomeScreen> {
                   color: scoresBg,
                 ),
                 title: Text('SCORES')),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.directions_run), title: Text('MEETS')),
             BottomNavigationBarItem(
                 icon: Icon(Icons.live_tv), title: Text('LIVE')),
             BottomNavigationBarItem(
