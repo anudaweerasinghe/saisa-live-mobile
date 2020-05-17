@@ -201,7 +201,7 @@ class _EventsHomeScreenState extends State<EventsHomeScreen> {
               ),
             ),
           ),
-          Expanded(
+          (live?liveTournaments.isNotEmpty:archivedTournaments.isNotEmpty)?Expanded(
             flex: 15,
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
@@ -446,6 +446,11 @@ class _EventsHomeScreenState extends State<EventsHomeScreen> {
                   }
               ),
             ),
+          )
+              :Expanded(
+            flex: 15,
+            child: Padding(padding: EdgeInsets.all(20),
+              child: Text("There are no Live Events right now. \n\nCome back and check later...", textAlign: TextAlign.left,),),
           )
         ],
       ),

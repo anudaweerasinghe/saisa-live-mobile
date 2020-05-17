@@ -237,7 +237,7 @@ class _LiveHomeScreenState extends State<LiveHomeScreen> {
               ),
             ),
           ),
-          Expanded(
+          (live?liveStreamList.isNotEmpty:pastFootageList.isNotEmpty)?Expanded(
             flex: 15,
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
@@ -398,6 +398,11 @@ class _LiveHomeScreenState extends State<LiveHomeScreen> {
                     );
                   }),
             ),
+          ):
+          Expanded(
+            flex: 15,
+            child: Padding(padding: EdgeInsets.all(20),
+            child: Text("There are no Live Streams right now. \n\nCome back and check later...", textAlign: TextAlign.left,),),
           )
         ],
       ),
