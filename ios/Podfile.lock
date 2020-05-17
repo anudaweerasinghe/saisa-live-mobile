@@ -1,22 +1,53 @@
 PODS:
   - Flutter (1.0.0)
+  - OneSignal (2.13.1)
+  - onesignal_flutter (2.4.1):
+    - Flutter
+    - OneSignal (= 2.13.1)
+  - shared_preferences (0.0.1):
+    - Flutter
+  - shared_preferences_macos (0.0.1):
+    - Flutter
+  - shared_preferences_web (0.0.1):
+    - Flutter
   - url_launcher (0.0.1):
     - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - onesignal_flutter (from `.symlinks/plugins/onesignal_flutter/ios`)
+  - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
+  - shared_preferences_macos (from `.symlinks/plugins/shared_preferences_macos/ios`)
+  - shared_preferences_web (from `.symlinks/plugins/shared_preferences_web/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
+
+SPEC REPOS:
+  trunk:
+    - OneSignal
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  onesignal_flutter:
+    :path: ".symlinks/plugins/onesignal_flutter/ios"
+  shared_preferences:
+    :path: ".symlinks/plugins/shared_preferences/ios"
+  shared_preferences_macos:
+    :path: ".symlinks/plugins/shared_preferences_macos/ios"
+  shared_preferences_web:
+    :path: ".symlinks/plugins/shared_preferences_web/ios"
   url_launcher:
     :path: ".symlinks/plugins/url_launcher/ios"
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  OneSignal: fa98eaa90372bb367b6a4a1c1622ffb9832c7600
+  onesignal_flutter: fc5794fdcfdbd3f17426cb63c78281a3f51c85ff
+  shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
+  shared_preferences_macos: f3f29b71ccbb56bf40c9dd6396c9acf15e214087
+  shared_preferences_web: 141cce0c3ed1a1c5bf2a0e44f52d31eeb66e5ea9
   url_launcher: a1c0cc845906122c4784c542523d8cacbded5626
 
-PODFILE CHECKSUM: 1b66dae606f75376c5f2135a8290850eeb09ae83
+PODFILE CHECKSUM: f24f2cded2e249e98750cf459e99f0f19a8ea333
 
 COCOAPODS: 1.8.4

@@ -10,10 +10,11 @@ import 'package:saisa_live_app/models/tournament_model.dart';
 import 'package:saisa_live_app/models/tournament_participant_model.dart';
 import 'package:saisa_live_app/models/meets_model.dart';
 import 'package:saisa_live_app/models/meets2_model.dart';
+import 'package:saisa_live_app/models/team_model.dart';
 
 
 //const baseUrl = "http://142.93.212.170:8080/saisa-live/";
-const baseUrl = "http://localhost:8080";
+const baseUrl = "http://anuda.me:8080/saisa-live/";
 
 
 Future<List<Livestream>> getAllLivestreams(bool liveStatus, int tournamentId) async{
@@ -32,6 +33,26 @@ Future<List<Livestream>> getAllLivestreams(bool liveStatus, int tournamentId) as
     liveStreamsList = data.map<Livestream>((json)=>Livestream.fromJson(json)).toList();
 
     return liveStreamsList;
+
+  }else{
+    return null;
+  }
+
+}
+
+Future<List<Team>> getAllTeams() async{
+
+  String url = baseUrl+'/teams?teamId=0';
+
+  final response = await http.get(url);
+
+  if(response.statusCode==200){
+    List<Team> teamsList;
+
+    var data = json.decode(response.body) as List;
+    teamsList = data.map<Team>((json)=>Team.fromJson(json)).toList();
+
+    return teamsList;
 
   }else{
     return null;
@@ -252,6 +273,36 @@ Future<List<MeetsLive>> getMeetsLiveByTournamentId(int activeStatus, int tournam
     meetsList = data.map<MeetsLive>((json)=>MeetsLive.fromJson(json)).toList();
 
     return meetsList;
+  }else{
+    return null;
+  }
+
+}
+
+Future<int>registerUser(String deviceName) async{
+
+  String url = baseUrl+'/users/new?deviceName='+deviceName;
+
+  final response = await http.get(url);
+
+  if(response.statusCode==200){
+    return int.parse(response.body);
+  }else{
+    return null;
+  }
+
+}
+
+Future<bool>followTeams(List<int>followingList, int userId) async{
+
+  String url = baseUrl+'/users/follow';
+  Map<String, String> headers = {"Content-type": "application/json"};
+  String json1 = '{"userId": "'+userId.toString()+'", "followingList": '+followingList.toString()+'}';
+
+  final response = await http.post(url, headers: headers, body: json1);
+
+  if(response.statusCode==200){
+    return true;
   }else{
     return null;
   }

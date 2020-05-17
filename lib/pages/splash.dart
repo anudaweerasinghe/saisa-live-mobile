@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:saisa_live_app/pages/scores_home.dart';
+import 'package:saisa_live_app/pages/follow_home.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -25,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Navigator.pop(context);
     Navigator.pushReplacement(
       context,
-      new MaterialPageRoute(builder: (ctxt) => new ScoresHomeScreen()),
+      new MaterialPageRoute(builder: (ctxt) => new FollowScreen()),
     );
   }
 
