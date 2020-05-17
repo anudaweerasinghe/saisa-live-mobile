@@ -14,7 +14,7 @@ import 'package:saisa_live_app/models/team_model.dart';
 
 
 //const baseUrl = "http://142.93.212.170:8080/saisa-live/";
-const baseUrl = "http://anuda.me:8080/saisa-live/";
+const baseUrl = "http://localhost:8080/";
 
 
 Future<List<Livestream>> getAllLivestreams(bool liveStatus, int tournamentId) async{
@@ -184,7 +184,7 @@ Future<List<Game>> getGamesByTorunamentId(int activeStatus, int tournamentId) as
 
 Future<TournamentParticipants> getParticipantsByTournament(int tournamentId) async{
 
-  String url = baseUrl+'/tournaments/participants/?tournamentId='+tournamentId.toString();
+  String url = baseUrl+'/tournaments/participants/?active=true&tournamentId='+tournamentId.toString();
 
   final response = await http.get(url);
 
