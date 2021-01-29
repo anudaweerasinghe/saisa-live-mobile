@@ -1,0 +1,149 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [
+    {
+      'type': 'directory',
+      'name': "/Users/anudaweerasinghe/Documents/saisa_live_flutter/saisa_live_app/ios/Build/Intermediates.noindex/ArchiveIntermediates/Runner/BuildProductsPath/Release-iphoneos/Pods_Runner.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "Pods-Runner-umbrella.h",
+          'external-contents': "/Users/anudaweerasinghe/Documents/saisa_live_flutter/saisa_live_app/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "Pods_Runner-Swift.h",
+          'external-contents': "/Users/anudaweerasinghe/Documents/saisa_live_flutter/saisa_live_app/ios/Build/Intermediates.noindex/ArchiveIntermediates/Runner/BuildProductsPath/Release-iphoneos/Pods_Runner.framework/Headers/Pods_Runner-Swift.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/anudaweerasinghe/Documents/saisa_live_flutter/saisa_live_app/ios/Build/Intermediates.noindex/ArchiveIntermediates/Runner/BuildProductsPath/Release-iphoneos/Pods_Runner.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/anudaweerasinghe/Documents/saisa_live_flutter/saisa_live_app/ios/Build/Intermediates.noindex/ArchiveIntermediates/Runner/IntermediateBuildFilesPath/Pods.build/Release-iphoneos/Pods-Runner.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/anudaweerasinghe/Documents/saisa_live_flutter/saisa_live_app/ios/Build/Intermediates.noindex/ArchiveIntermediates/Runner/BuildProductsPath/Release-iphoneos/onesignal_flutter/onesignal_flutter.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "OSFlutterCategories.h",
+          'external-contents': "/Users/anudaweerasinghe/flutter/.pub-cache/hosted/pub.dartlang.org/onesignal_flutter-2.4.1/ios/Classes/OSFlutterCategories.h"
+        },
+        {
+          'type': 'file',
+          'name': "OSFlutterInAppMessagesController.h",
+          'external-contents': "/Users/anudaweerasinghe/flutter/.pub-cache/hosted/pub.dartlang.org/onesignal_flutter-2.4.1/ios/Classes/OSFlutterInAppMessagesController.h"
+        },
+        {
+          'type': 'file',
+          'name': "OSFlutterOutcomeEventsController.h",
+          'external-contents': "/Users/anudaweerasinghe/flutter/.pub-cache/hosted/pub.dartlang.org/onesignal_flutter-2.4.1/ios/Classes/OSFlutterOutcomeEventsController.h"
+        },
+        {
+          'type': 'file',
+          'name': "OSFlutterTagsController.h",
+          'external-contents': "/Users/anudaweerasinghe/flutter/.pub-cache/hosted/pub.dartlang.org/onesignal_flutter-2.4.1/ios/Classes/OSFlutterTagsController.h"
+        },
+        {
+          'type': 'file',
+          'name': "OneSignalPlugin.h",
+          'external-contents': "/Users/anudaweerasinghe/flutter/.pub-cache/hosted/pub.dartlang.org/onesignal_flutter-2.4.1/ios/Classes/OneSignalPlugin.h"
+        },
+        {
+          'type': 'file',
+          'name': "onesignal_flutter-Swift.h",
+          'external-contents': "/Users/anudaweerasinghe/Documents/saisa_live_flutter/saisa_live_app/ios/Build/Intermediates.noindex/ArchiveIntermediates/Runner/BuildProductsPath/Release-iphoneos/onesignal_flutter/onesignal_flutter.framework/Headers/onesignal_flutter-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "onesignal_flutter-umbrella.h",
+          'external-contents': "/Users/anudaweerasinghe/Documents/saisa_live_flutter/saisa_live_app/ios/Pods/Target Support Files/onesignal_flutter/onesignal_flutter-umbrella.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/anudaweerasinghe/Documents/saisa_live_flutter/saisa_live_app/ios/Build/Intermediates.noindex/ArchiveIntermediates/Runner/BuildProductsPath/Release-iphoneos/onesignal_flutter/onesignal_flutter.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/anudaweerasinghe/Documents/saisa_live_flutter/saisa_live_app/ios/Build/Intermediates.noindex/ArchiveIntermediates/Runner/IntermediateBuildFilesPath/Pods.build/Release-iphoneos/onesignal_flutter.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/anudaweerasinghe/Documents/saisa_live_flutter/saisa_live_app/ios/Build/Intermediates.noindex/ArchiveIntermediates/Runner/BuildProductsPath/Release-iphoneos/shared_preferences/shared_preferences.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "FLTSharedPreferencesPlugin.h",
+          'external-contents': "/Users/anudaweerasinghe/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.5.7+2/ios/Classes/FLTSharedPreferencesPlugin.h"
+        },
+        {
+          'type': 'file',
+          'name': "shared_preferences-Swift.h",
+          'external-contents': "/Users/anudaweerasinghe/Documents/saisa_live_flutter/saisa_live_app/ios/Build/Intermediates.noindex/ArchiveIntermediates/Runner/BuildProductsPath/Release-iphoneos/shared_preferences/shared_preferences.framework/Headers/shared_preferences-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "shared_preferences-umbrella.h",
+          'external-contents': "/Users/anudaweerasinghe/Documents/saisa_live_flutter/saisa_live_app/ios/Pods/Target Support Files/shared_preferences/shared_preferences-umbrella.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/anudaweerasinghe/Documents/saisa_live_flutter/saisa_live_app/ios/Build/Intermediates.noindex/ArchiveIntermediates/Runner/BuildProductsPath/Release-iphoneos/shared_preferences/shared_preferences.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/anudaweerasinghe/Documents/saisa_live_flutter/saisa_live_app/ios/Build/Intermediates.noindex/ArchiveIntermediates/Runner/IntermediateBuildFilesPath/Pods.build/Release-iphoneos/shared_preferences.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/anudaweerasinghe/Documents/saisa_live_flutter/saisa_live_app/ios/Build/Intermediates.noindex/ArchiveIntermediates/Runner/BuildProductsPath/Release-iphoneos/url_launcher/url_launcher.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "UrlLauncherPlugin.h",
+          'external-contents': "/Users/anudaweerasinghe/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher-5.2.1/ios/Classes/UrlLauncherPlugin.h"
+        },
+        {
+          'type': 'file',
+          'name': "url_launcher-Swift.h",
+          'external-contents': "/Users/anudaweerasinghe/Documents/saisa_live_flutter/saisa_live_app/ios/Build/Intermediates.noindex/ArchiveIntermediates/Runner/BuildProductsPath/Release-iphoneos/url_launcher/url_launcher.framework/Headers/url_launcher-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "url_launcher-umbrella.h",
+          'external-contents': "/Users/anudaweerasinghe/Documents/saisa_live_flutter/saisa_live_app/ios/Pods/Target Support Files/url_launcher/url_launcher-umbrella.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/anudaweerasinghe/Documents/saisa_live_flutter/saisa_live_app/ios/Build/Intermediates.noindex/ArchiveIntermediates/Runner/BuildProductsPath/Release-iphoneos/url_launcher/url_launcher.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/anudaweerasinghe/Documents/saisa_live_flutter/saisa_live_app/ios/Build/Intermediates.noindex/ArchiveIntermediates/Runner/IntermediateBuildFilesPath/Pods.build/Release-iphoneos/url_launcher.build/module.modulemap"
+        }
+      ]
+    }
+  ]
+}

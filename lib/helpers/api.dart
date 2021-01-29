@@ -13,8 +13,8 @@ import 'package:saisa_live_app/models/meets2_model.dart';
 import 'package:saisa_live_app/models/team_model.dart';
 
 
-//const baseUrl = "http://142.93.212.170:8080/saisa-live/";
-const baseUrl = "http://localhost:8080/";
+const baseUrl = "https://anuda.me:8443/saisa-live/";
+//const baseUrl = "http://localhost:8080/";
 
 
 Future<List<Livestream>> getAllLivestreams(bool liveStatus, int tournamentId) async{

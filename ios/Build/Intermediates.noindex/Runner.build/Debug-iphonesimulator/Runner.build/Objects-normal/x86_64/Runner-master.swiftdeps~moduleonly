@@ -1,0 +1,5 @@
+version: "Apple Swift version 5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)"
+options: "2f329eaef294bf561e626260aaa388e7"
+build_time: [1611962794, 469531000]
+inputs:
+  "/Users/anudaweerasinghe/Documents/saisa_live_flutter/saisa_live_app/ios/Runner/AppDelegate.swift": [1557209004, 0]
